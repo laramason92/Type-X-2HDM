@@ -1,7 +1,7 @@
 (***************************************************************************************************************)
 (******                       This is the FeynRules mod-file for the 2HDM                                 ******)
 (******                                                                                                   ******)
-(******     Authors: C. Duhr, M. Herquet, C.Degrande                                                      ******)
+(******   Authors: C. Duhr, M. Herquet, C.Degrande, modified from a general 2HDM to Type X by L. Mason    ******)
 (******                                                                                                   ******)
 (***************************************************************************************************************)
 
@@ -9,10 +9,10 @@ M$ModelName = "2HDM";
 
 (* The Feynman gauge switch allows to activiate the QCD ghosts (needed, e.g. by CalcHep)   *)
    
-M$Information = {Authors -> {"C. Duhr", "M. Herquet","C. Degrande"}, 
+M$Information = {Authors -> {"C. Duhr", "M. Herquet","C. Degrande", "L. Mason"}, 
              Version -> "1.2",
-             Date -> "12. 10. 2015",
-             Institutions -> {"Universite catholique de Louvain (CP3)", "NIKHEF Theory Dept.","IPPP"},
+             Date -> "03. 2019",
+             Institutions -> {"Universite catholique de Louvain (CP3)", "NIKHEF Theory Dept.","IPPP", "SA-CERN"},
              URLs  -> "http://feynrules.phys.ucl.ac.be/view/Main/2HDM",
              Emails -> {"claude.duhr@uclouvain.be", "mherquet@nikhef.nl","celine.degrande@durham.ac.uk"}};
 
@@ -20,8 +20,6 @@ FeynmanGauge = True;
 
 FR$LoopSwitches = {{Gf, MW}};
 FR$RmDblExt = { ymb -> MB, ymc -> MC, ymdo -> MD, yme -> Me, ymm -> MMU, yms -> MS, ymt -> MT, ymtau -> MTA, ymup -> MU};
-
-(*v1.2 bug fix in the scalar potential*)
 
 (******* Index definitions ********)
 
@@ -32,14 +30,12 @@ IndexRange[Index[Colour    ]] = NoUnfold[Range[3]];
 IndexRange[Index[Generation]] = Range[3];
 IndexRange[Index[Higgs     ]] = Unfold[Range[3]];
 
-
 IndexStyle[SU2W,       j];
 IndexStyle[SU2D,       k];
 IndexStyle[Gluon,      a];
 IndexStyle[Colour,     m];
 IndexStyle[Generation, f];
 IndexStyle[Higgs,      j];
-
 
 (* ************************** *)
 (* *** Interaction orders *** *)
@@ -50,7 +46,6 @@ M$InteractionOrderHierarchy = {
   {QCD, 1},
   {QED, 2}
 };
-
 
 
 (* ************************** *)
