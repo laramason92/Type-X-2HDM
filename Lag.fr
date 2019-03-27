@@ -63,9 +63,7 @@ LHiggs := Block[{ii,mu, feynmangaugerules,V2HDM,LHiggsKin},
   P21 := Module[{jj},Phi2bar[jj] Phi1[jj]];
   P22 := Module[{jj},Phi2bar[jj] Phi2[jj]];
   
-  V2HDM := mu1 P11 +mu2 P22 +mu3 P12 +Conjugate[mu3] P21 + 
-    l1 P11*P11 + l2 P22*P22 + l3 P11 P22 + l4 P12 P21 + l5 P12*P12 + 
-    Conjugate[l5] P21*P21;
+  V2HDM := mu1*P11 +mu2*P22 -mu3*(P12 + P21) + l1/2.0*(P11*P11) + l2/2.0*(P22*P22) + l3*(P11*P22) + l4*P12*P21 + l5/2.0*(P12*P12 + P21*P21);
     
   LHiggsKin := DC[Phi1bar[ii],mu] DC[Phi1[ii],mu]+DC[Phi2bar[ii],mu] DC[Phi2[ii],mu];
  

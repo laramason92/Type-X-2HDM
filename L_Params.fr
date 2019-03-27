@@ -5,7 +5,7 @@
 
 M$Parameters = {
 
-  (* External parameters *)
+  (* External Constants *)
 
   \[Alpha]EWM1== {
         ParameterType -> External,
@@ -29,7 +29,6 @@ M$Parameters = {
         InteractionOrder -> {QCD, 2},
         Value -> 0.118,
         Description -> "Strong coupling constant at the Z pole."},
-
 
 (* Yukawa masses *)
   
@@ -99,10 +98,7 @@ M$Parameters = {
     Description   -> "Tau Yukawa mass"
   },
 
-
-
-
-   (* Internal Parameters *)
+   (* Coupling constants and angles *)
 
   \[Alpha]EW == {
         ParameterType -> Internal,
@@ -163,6 +159,8 @@ M$Parameters = {
         ParameterName -> G,
         Description -> "Strong coupling constant"},
    
+(* VEVS *)
+
    vev == {
         ParameterType -> External,
         (*Value -> 2*MW*sw/ee,*)
@@ -171,6 +169,7 @@ M$Parameters = {
         Description -> "Higgs VEV"},
 
 (* vev1, vev2 calculated from vev1^2 + vev2^2 = vev^2 & tanbeta = vev2/vev1 *)
+
    vev2 == {
         ParameterType -> Internal,
         Value -> vev*tanbeta/Sqrt[1+tanbeta^2],
@@ -184,6 +183,7 @@ M$Parameters = {
         Description -> "Phi_1 VEV"},
 
 (* CKM sector *)
+
   cabi == {
     ParameterType -> External,
     BlockName     -> CKMBLOCK,
@@ -203,7 +203,6 @@ M$Parameters = {
     Description -> "CKM-Matrix"},
 
 (* Yukawa Matrices *)
-
   
   yu == {
     ParameterType    -> Internal,
@@ -317,6 +316,8 @@ M$Parameters = {
     InteractionOrder -> {QED, 1},
     Value -> {GL[i_,j_] :> GLR[i,j] + I*GLI[i,j]}},
 
+(* Mixing angles *)
+
   tanbeta == {
         ParameterType -> External,
         Value -> 1.53748,
@@ -324,7 +325,7 @@ M$Parameters = {
 
   sb == {
     ParameterType    -> Internal,
-    Value            -> Sin[ArcTan[tanbeta]],
+    Value            -> tanbeta/Sqrt[1+tanbeta],
     InteractionOrder -> {QED,0},
     TeX              -> Subscript[s,\[Beta]],
     Description      -> "Sine beta"

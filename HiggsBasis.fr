@@ -5,7 +5,8 @@
 
 M$ParametersHiggsBasis = {
 
-(* Values for lambdas are given in the literature, such as arXiv 1508.00702*)	
+(* Values for lambdas, the coefficients of the Higgs potential, are given in the literature, such as arXiv 1508.00702*)	
+
   l1 == {
      ParameterType -> Internal,
      ComplexParameter -> False,
@@ -47,16 +48,16 @@ M$ParametersHiggsBasis = {
      InteractionOrder -> {QED,2},
      ParameterName -> l5},
 
-   mu1 == {
+   mu1 == { (* m_{11}^2 *)
         ParameterType -> Internal,
         ComplexParameter -> False,
-        Value -> -l1*vev^2,
+        Value -> 1/vev1^2 (mu3*vev2 - vev1/2.0 (l1*vev1^2 + (l3+l4+l5)*vev2^2)),
         Description -> "Phi1 mass term"},
 
-   mu2 == {
+   mu2 == { (* m_{22}^2 *)
         ParameterType -> Internal,
         ComplexParameter -> False,
-        Value -> mhc^2-l3*vev^2/2,
+        Value -> 1/vev2^2 (mu3*vev1 - vev2/2.0 (l2*vev2^2 + (l3+l4+l5)*vev1^2)),
         Description -> "Phi2 mass term"},
    
    mu3 == { (*m_{12}^2*)
@@ -64,9 +65,6 @@ M$ParametersHiggsBasis = {
         ComplexParameter->True,
         Value -> l5*vev^2*sb*cb + mh3^2*sb*cb, (* arxiv 1303.5098 *)
         Description -> "Phi1 Phi2 mass term"}
-
-
-
 }
 
 
@@ -133,7 +131,7 @@ M$HiggsFields = {
   },
 
 (* Higgs : neutral unphysical states*)
-(* This was used in the General 2HDM setup in order to define the phi doublets. Not used in Type X setup *)
+(* This was used in the General 2HDM setup in order to define the phi doublets. Not used in Type X setup, where we are defining our own beta and alpha as input variables*)
 
   S[31] == {
     ClassName     -> Nh,

@@ -5,9 +5,13 @@
 (******                                                                                                   ******)
 (***************************************************************************************************************)
 
+
+(* In this model file, we define the general information about our model *)
+
+
 M$ModelName = "2HDM";
 
-(* The Feynman gauge switch allows to activiate the QCD ghosts (needed, e.g. by CalcHep)   *)
+(* The Feynman gauge switch allows to activate the QCD ghosts (needed, e.g. by CalcHep)   *)
    
 M$Information = {Authors -> {"C. Duhr", "M. Herquet","C. Degrande", "L. Mason"}, 
              Version -> "1.2",
@@ -35,7 +39,7 @@ IndexStyle[SU2D,       k];
 IndexStyle[Gluon,      a];
 IndexStyle[Colour,     m];
 IndexStyle[Generation, f];
-IndexStyle[Higgs,      j];
+IndexStyle[Higgs,      h];
 
 (* ************************** *)
 (* *** Interaction orders *** *)
@@ -51,6 +55,7 @@ M$InteractionOrderHierarchy = {
 (* ************************** *)
 (* *****      vevs      ***** *)
 (* ************************** *)
+(* one for each phi doublet *)
 M$vevs = { {Phi1[2],vev1}, {Phi2[2],vev2} };
 
 (******* Gauge parameters (for FeynArts) ********)
@@ -103,7 +108,6 @@ Get["SMParts.fr"];
 Get["Lag.fr"];
 
 Get["HiggsBasis.fr"];
-
 
 M$Parameters = Join[M$Parameters, M$ParametersHiggsBasis];
 
