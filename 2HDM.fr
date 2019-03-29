@@ -25,7 +25,9 @@ FeynmanGauge = True;
 FR$LoopSwitches = {{Gf, MW}};
 FR$RmDblExt = { ymb -> MB, ymc -> MC, ymdo -> MD, yme -> Me, ymm -> MMU, yms -> MS, ymt -> MT, ymtau -> MTA, ymup -> MU};
 
-(******* Index definitions ********)
+(* --------------------------------- *)
+(* ------- Index definitions ------- *)
+(* --------------------------------- *)
 
 IndexRange[Index[SU2W      ]] = Unfold[Range[3]]; 
 IndexRange[Index[SU2D      ]] = Unfold[Range[2]];
@@ -39,12 +41,12 @@ IndexStyle[SU2D,       k];
 IndexStyle[Gluon,      a];
 IndexStyle[Colour,     m];
 IndexStyle[Generation, f];
-IndexStyle[Higgs,      h];
+IndexStyle[Higgs,      j];
 
-(* ************************** *)
-(* *** Interaction orders *** *)
-(* ***  (as used by mg5)  *** *)
-(* ************************** *)
+(* -------------------------- *)
+(* --- Interaction orders --- *)
+(* ---  (as used by mg5)  --- *)
+(* -------------------------- *)
 
 M$InteractionOrderHierarchy = {
   {QCD, 1},
@@ -52,13 +54,19 @@ M$InteractionOrderHierarchy = {
 };
 
 
-(* ************************** *)
-(* *****      vevs      ***** *)
-(* ************************** *)
-(* one for each phi doublet *)
-M$vevs = { {Phi1[2],vev1}, {Phi2[2],vev2} };
+(* -------------------------- *)
+(* -----      vevs      ----- *)
+(* -------------------------- *)
 
-(******* Gauge parameters (for FeynArts) ********)
+(* one for each phi doublet *)
+
+M$vevs = { {Phi1[2], vev cb}, {Phi2[2], vev sb} };
+
+(* M$vevs = { {Phi1[2],vev1}, {Phi2[2],vev2} }; *)
+
+(* --------------------------------------------- *)
+(* ------ Gauge parameters (for FeynArts) ------ *)
+(* --------------------------------------------- *)
 
 GaugeXi[ V[1] ] = GaugeXi[A];
 GaugeXi[ V[2] ] = GaugeXi[Z];
@@ -73,8 +81,9 @@ GaugeXi[ U[31] ] = GaugeXi[W];
 GaugeXi[ U[32] ] = GaugeXi[W];
 GaugeXi[ U[4] ] = GaugeXi[G];
 
-
-(************** Gauge Groups ******************)
+(* ---------------------------- *)
+(* ------- Gauge Groups ------- *)
+(* ---------------------------- *)
 
 M$GaugeGroups = {
   U1Y  == { 

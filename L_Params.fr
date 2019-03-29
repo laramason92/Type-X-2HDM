@@ -1,11 +1,12 @@
 
 
-
-(****************  Parameters *************)
+(* --------------------------------- *)
+(* -----------  Parameters ----------*)
+(* --------------------------------- *)
 
 M$Parameters = {
 
-  (* External Constants *)
+  (* ---- External Constants ---- *)
 
   \[Alpha]EWM1== {
         ParameterType -> External,
@@ -30,7 +31,7 @@ M$Parameters = {
         Value -> 0.118,
         Description -> "Strong coupling constant at the Z pole."},
 
-(* Yukawa masses *)
+(* ---- Yukawa masses ---- *)
   
   ymdo == {
     ParameterType -> External,
@@ -98,7 +99,7 @@ M$Parameters = {
     Description   -> "Tau Yukawa mass"
   },
 
-   (* Coupling constants and angles *)
+   (* ---- Coupling constants and angles ---- *)
 
   \[Alpha]EW == {
         ParameterType -> Internal,
@@ -159,12 +160,12 @@ M$Parameters = {
         ParameterName -> G,
         Description -> "Strong coupling constant"},
    
-(* VEVS *)
+(* ---- VEVS ---- *)
 
    vev == {
         ParameterType -> External,
         (*Value -> 2*MW*sw/ee,*)
-        Value -> 246,
+        Value -> 246.0,
         InteractionOrder -> {QED, -1},
         Description -> "Higgs VEV"},
 
@@ -182,7 +183,7 @@ M$Parameters = {
         InteractionOrder -> {QED, -1},
         Description -> "Phi_1 VEV"},
 
-(* CKM sector *)
+(* ---- CKM sector ---- *)
 
   cabi == {
     ParameterType -> External,
@@ -202,7 +203,7 @@ M$Parameters = {
     TeX         -> Superscript[V,CKM],
     Description -> "CKM-Matrix"},
 
-(* Yukawa Matrices *)
+(* ---- Yukawa Matrices ---- *)
   
   yu == {
     ParameterType    -> Internal,
@@ -316,7 +317,7 @@ M$Parameters = {
     InteractionOrder -> {QED, 1},
     Value -> {GL[i_,j_] :> GLR[i,j] + I*GLI[i,j]}},
 
-(* Mixing angles *)
+(* ---- Mixing angles ---- *)
 
   tanbeta == {
         ParameterType -> External,
@@ -365,4 +366,6 @@ M$Parameters = {
     TeX              -> Subscript[c,\[Alpha]],
     Description      -> "Cosine alpha"
   }
+
+
 }
