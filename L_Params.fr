@@ -164,24 +164,10 @@ M$Parameters = {
 
    vev == {
         ParameterType -> External,
-        (*Value -> 2*MW*sw/ee,*)
-        Value -> 246.0,
+        Value -> 2*MW*sw/ee,
+        (*Value -> 246.0,*)
         InteractionOrder -> {QED, -1},
         Description -> "Higgs VEV"},
-
-(* vev1, vev2 calculated from vev1^2 + vev2^2 = vev^2 & tanbeta = vev2/vev1 *)
-
-   vev2 == {
-        ParameterType -> Internal,
-        Value -> vev*tanbeta/Sqrt[1+tanbeta^2],
-        InteractionOrder -> {QED, -1},
-        Description -> "Phi2 VEV"},
-
-   vev1 == {
-        ParameterType -> Internal,
-        Value -> Sqrt[vev^2 - vev2^2],
-        InteractionOrder -> {QED, -1},
-        Description -> "Phi_1 VEV"},
 
 (* ---- CKM sector ---- *)
 
@@ -216,32 +202,6 @@ M$Parameters = {
     Description      -> "Up-type Yukawa couplings"
   },
 
-  GUR == {
-    ParameterType -> External,
-    BlockName -> YukawaGUR,
-    ComplexParameter -> False,
-    TeX -> Subscript[\[CapitalGamma], UR],
-    Indices -> {Index[Generation], Index[Generation]},
-    InteractionOrder -> {QED, 1},
-    Value -> {GUR[i_,j_] :> 0.01/;(i=!=j), GUR[i_,i_] :> 1}},
-
-  GUI == {
-    ParameterType -> External,
-    BlockName -> YukawaGUI,
-    ComplexParameter -> False,
-    TeX -> Subscript[\[CapitalGamma], UI],
-    Indices -> {Index[Generation], Index[Generation]},
-    InteractionOrder -> {QED, 1},
-    Value -> {GUI[i_,j_] :> 0}},
-
-  GU == {
-    ParameterType -> Internal,
-    ComplexParameter -> True,
-    TeX -> Subscript[\[CapitalGamma], U],
-    Indices -> {Index[Generation], Index[Generation]},
-    InteractionOrder -> {QED, 1},
-    Value -> {GU[i_,j_] :> GUR[i,j] + I*GUI[i,j]}},
-
   yd == {
     ParameterType    -> Internal,
     Indices          -> {Index[Generation], Index[Generation]},
@@ -254,32 +214,6 @@ M$Parameters = {
   },
 
 
-  GDR == {
-    ParameterType -> External,
-    BlockName -> YukawaGDR,
-    ComplexParameter -> False,
-    TeX -> Subscript[\[CapitalGamma], DR],
-    Indices -> {Index[Generation], Index[Generation]},
-    InteractionOrder -> {QED, 1},
-    Value -> {GDR[i_,j_] :> 0.01/;(i=!=j), GDR[i_,i_] :> 1}},
-
-  GDI == {
-    ParameterType -> External,
-    BlockName -> YukawaGDI,
-    ComplexParameter -> False,
-    TeX -> Subscript[\[CapitalGamma], DI],
-    Indices -> {Index[Generation], Index[Generation]},
-    InteractionOrder -> {QED, 1},
-    Value -> {GDI[i_,j_] :> 0}},
-
-  GD == {
-    ParameterType -> Internal,
-    ComplexParameter -> True,
-    TeX -> Subscript[\[CapitalGamma], D],
-    Indices -> {Index[Generation], Index[Generation]},
-    InteractionOrder -> {QED, 1},
-    Value -> {GD[i_,j_] :> GDR[i,j] + I*GDI[i,j]}},
-
   yl == {
     ParameterType    -> Internal,
     Indices          -> {Index[Generation], Index[Generation]},
@@ -290,32 +224,6 @@ M$Parameters = {
     TeX              -> Superscript[y, l],
     Description      -> "Lepton Yukawa couplings"
   },
-
-  GLR == {
-    ParameterType -> External,
-    BlockName -> YukawaGLR,
-    ComplexParameter -> False,
-    TeX -> Subscript[\[CapitalGamma], LR],
-    Indices -> {Index[Generation], Index[Generation]},
-    InteractionOrder -> {QED, 1},
-    Value -> {GLR[i_,j_] :> 0.01/;(i=!=j), GLR[i_,i_] :> 1}},
-
-  GLI == {
-    ParameterType -> External,
-    BlockName -> YukawaGLI,
-    ComplexParameter -> False,
-    TeX -> Subscript[\[CapitalGamma], LI],
-    Indices -> {Index[Generation], Index[Generation]},
-    InteractionOrder -> {QED, 1},
-    Value -> {GLI[i_,j_] :> 0}},
-
-  GL == {
-    ParameterType -> Internal,
-    ComplexParameter -> True,
-    TeX -> Subscript[\[CapitalGamma], L],
-    Indices -> {Index[Generation], Index[Generation]},
-    InteractionOrder -> {QED, 1},
-    Value -> {GL[i_,j_] :> GLR[i,j] + I*GLI[i,j]}},
 
 (* ---- Mixing angles ---- *)
 
@@ -340,9 +248,21 @@ M$Parameters = {
     Description      -> "Cosine beta"
   },
 
+  RA == { 
+    ParameterType -> Internal,
+    Indices       -> {Index[Higgs], Index[Higgs]},
+    Orthogonal    -> True,
+    Value -> {  RA[1,1] :> ca,    RA[1,2] :> sa,
+                RA[2,1] :> -sa,   RA[2,2] :> ca },
+    TeX           -> Subscript[R,\[Alpha]],
+    Description   -> "Ralpha-Matrix",
+    Hermitian     -> True,
+    Orthogonal    -> True 
+},
+
   sa == { 
         ParameterType -> External,
-        Value -> 0.5, (* arXiv 0909.5148 *)
+        Value -> 0.5, (* 0.5, arXiv 0909.5148 *)
         TeX              -> Subscript[s,\[Alpha]],
         Description -> "sin alpha"},
 

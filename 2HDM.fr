@@ -1,7 +1,7 @@
 (***************************************************************************************************************)
 (******                       This is the FeynRules mod-file for the 2HDM                                 ******)
 (******                                                                                                   ******)
-(******   Authors: C. Duhr, M. Herquet, C.Degrande, modified from a general 2HDM to Type X by L. Mason    ******)
+(******                       Author: L. Mason                                                            ******)
 (******                                                                                                   ******)
 (***************************************************************************************************************)
 
@@ -13,12 +13,12 @@ M$ModelName = "2HDM";
 
 (* The Feynman gauge switch allows to activate the QCD ghosts (needed, e.g. by CalcHep)   *)
    
-M$Information = {Authors -> {"C. Duhr", "M. Herquet","C. Degrande", "L. Mason"}, 
+M$Information = {Authors -> { "L. Mason"}, 
              Version -> "1.2",
              Date -> "03. 2019",
-             Institutions -> {"Universite catholique de Louvain (CP3)", "NIKHEF Theory Dept.","IPPP", "SA-CERN"},
+             Institutions -> {"SA-CERN"},
              URLs  -> "http://feynrules.phys.ucl.ac.be/view/Main/2HDM",
-             Emails -> {"claude.duhr@uclouvain.be", "mherquet@nikhef.nl","celine.degrande@durham.ac.uk"}};
+             Emails -> {"lara.mason@live.com"}};
 
 FeynmanGauge = True;
 
@@ -29,19 +29,19 @@ FR$RmDblExt = { ymb -> MB, ymc -> MC, ymdo -> MD, yme -> Me, ymm -> MMU, yms -> 
 (* ------- Index definitions ------- *)
 (* --------------------------------- *)
 
-IndexRange[Index[SU2W      ]] = Unfold[Range[3]]; 
-IndexRange[Index[SU2D      ]] = Unfold[Range[2]];
+IndexRange[Index[SU2W      ]] = Unfold[Range[3]]; (*adjoint SU(2)_L index from 1 to 3 *) 
+IndexRange[Index[SU2D      ]] = Unfold[Range[2]]; (*fundamental SU(2)_L doublet *)
 IndexRange[Index[Gluon     ]] = NoUnfold[Range[8]];
 IndexRange[Index[Colour    ]] = NoUnfold[Range[3]]; 
 IndexRange[Index[Generation]] = Range[3];
-IndexRange[Index[Higgs     ]] = Unfold[Range[3]];
+IndexRange[Index[Higgs     ]] = Range[2]; (* this is for the Higgs class containing h0, H+- and S later. A is separate *)
 
 IndexStyle[SU2W,       j];
 IndexStyle[SU2D,       k];
 IndexStyle[Gluon,      a];
 IndexStyle[Colour,     m];
 IndexStyle[Generation, f];
-IndexStyle[Higgs,      j];
+IndexStyle[Higgs,      h];
 
 (* -------------------------- *)
 (* --- Interaction orders --- *)
@@ -61,8 +61,6 @@ M$InteractionOrderHierarchy = {
 (* one for each phi doublet *)
 
 M$vevs = { {Phi1[2], vev cb}, {Phi2[2], vev sb} };
-
-(* M$vevs = { {Phi1[2],vev1}, {Phi2[2],vev2} }; *)
 
 (* --------------------------------------------- *)
 (* ------ Gauge parameters (for FeynArts) ------ *)
