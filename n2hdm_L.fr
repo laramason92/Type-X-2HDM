@@ -1,8 +1,7 @@
 (***************************************************************************************************************)
 (******     This is the FeynRules mod-file for the Next-to-Minimal 2-Higgs-Doublet Model                  ******)
 (******                                                                                                   ******)
-(******     Authors: Lara Mason                                                                           ******)
-(******     help from R. Islam, M. Kumar                                                                  ******)
+(******     Authors: R. Islam, M. Kumar                                                                   ******)
 (******                                                                                                   ******)
 (****** Choose whether Feynman gauge is desired.                                                          ******)
 (****** If set to False, unitary gauge is assumed.                                                          ****)
@@ -13,14 +12,14 @@
 (* ************************** *)
 (* *****  Information   ***** *)
 (* ************************** *)
-M$ModelName = "2-Higgs-Doublet Model+S";
+M$ModelName = "Next-to-Minimal 2-Higgs-Doublet Model";
 
 M$Information = {
-  Authors      -> {"L. Mason"}, 
-  Version      -> "1",
-  Date         -> "2019",
-  Institutions -> {"University of the Witwatersrand"},
-  Emails       -> {"lara.mason@live.com"}
+  Authors      -> {"R. Islam", "M. Kumar"}, 
+  Version      -> "1.1",
+  Date         -> "20. 12. 2018",
+  Institutions -> {"IIT Guwahati", "University of the Witwatersrand"},
+  Emails       -> {"rislam@iitg.ac.in", "mukesh.kumar@wits.ac.za"}
 };
 
 FeynmanGauge = True;
@@ -34,9 +33,16 @@ FR$RmDblExt = { ymb -> MB, ymc -> MC, ymdo -> MD, yme -> Me,
    ymm -> MMU, yms -> MS, ymt -> MT, ymtau -> MTA, ymup -> MU};
 
 (* ************************** *)
+(* *****  Change  log   ***** *)
+(* ************************** *)
+
+(* v1.0: 19. 12. 2018: Based on SM.fr by Christensen et. al. this model file is written    *)
+(* v1.1: 20. 12. 2018: Removed Higgs Effective Vertex                                        *)
+
+(* ************************** *)
 (* *****      vevs      ***** *)
 (* ************************** *)
-M$vevs = { {Phi1[2], vev cb}, {Phi2[2], vev sb}, {Phi3, vev3} };
+M$vevs = { {Phi[2], vev cosb}, {Phi2[2], vev sinb}, {Phi3, vev3} };
 
 (* ************************** *)
 (* *****  Gauge groups  ***** *)
@@ -442,7 +448,7 @@ M$ClassesDescription = {
   S[4] == {
     ClassName       -> A0,
     SelfConjugate   -> True,
-    Mass            -> {MA0,300},
+    Mass            -> {MA0,250},
     Width           -> {WA0,20.85},
     PropagatorLabel -> "A0",
     PropagatorType  -> D,
@@ -454,7 +460,7 @@ M$ClassesDescription = {
   S[5] == {
     ClassName        -> HP,
     SelfConjugate    -> False,
-    Mass             -> {MHP, 300},
+    Mass             -> {MHP, 250},
     QuantumNumbers   -> {Q -> 1},
     Width            -> {WHP, 20.85},
     PropagatorLabel  -> "HP",
@@ -483,36 +489,36 @@ M$ClassesDescription = {
     ClassName        -> eta1,
     SelfConjugate    -> True,
     Unphysical       -> True,
-    Definitions      -> { eta1 -> cb G0 - sb A0 }
+    Definitions      -> { eta1 -> cosb G0 - sinb A0 }
   },
   S[13] == {
     ClassName        -> eta2,
     SelfConjugate    -> True,
     Unphysical       -> True,
-    Definitions      -> { eta2 -> sb G0 + cb A0 }
+    Definitions      -> { eta2 -> sinb G0 + cosb A0 }
   },
   S[14] == {
     ClassName        -> phi1p,
     SelfConjugate    -> False,
     Unphysical       -> True,
     QuantumNumbers   -> {Q -> 1},
-    Definitions    -> { phi1p -> cb GP - sb HP }
+    Definitions    -> { phi1p -> cosb GP - sinb HP }
   },
   S[15] == {
     ClassName        -> phi2p,
     SelfConjugate    -> False,
     Unphysical       -> True,
     QuantumNumbers   -> {Q -> 1},
-    Definitions    -> { phi2p -> sb GP + cb HP }
+    Definitions    -> { phi2p -> sinb GP + cosb HP }
   },
   S[16] == { 
-    ClassName      -> Phi1, 
+    ClassName      -> Phi, 
     Unphysical     -> True, 
     Indices        -> {Index[SU2D]},
     FlavorIndex    -> SU2D,
     SelfConjugate  -> False,
     QuantumNumbers -> {Y -> 1/2},
-    Definitions    -> { Phi1[1] -> phi1p, Phi1[2] -> (vev cb + rho[1] + I eta1)/Sqrt[2] }
+    Definitions    -> { Phi[1] -> phi1p, Phi[2] -> (vev cosb + rho[1] + I eta1)/Sqrt[2] }
   },
   S[17] == { 
     ClassName      -> Phi2, 
@@ -521,7 +527,7 @@ M$ClassesDescription = {
     FlavorIndex    -> SU2D,
     SelfConjugate  -> False,
     QuantumNumbers -> {Y -> 1/2},
-    Definitions    -> { Phi2[1] -> phi2p, Phi2[2] -> (vev sb + rho[2] + I eta2)/Sqrt[2] }
+    Definitions    -> { Phi2[1] -> phi2p, Phi2[2] -> (vev sinb + rho[2] + I eta2)/Sqrt[2] }
   },
   S[18] == { 
     ClassName      -> Phi3, 
@@ -661,13 +667,10 @@ M$ParametersExt = {
 (***  N2HDM external parameters   ***)
 (*----------------------------------*)
 
-(* angles to diagonalise the CP even sector *)
-(* to get to the SM limit where S decouples, send a2, a3 -> 0 and a1 -> a + pi/2 *)
-
   a1 == {
     ParameterType    -> External,
     BlockName        -> N2HDMBLOCK,
-    Value            -> 0.1, (* ArcTan[tanbeta], *)
+    Value            -> 0.1,
     TeX              -> Subscript[\[Alpha],1],
     Description      -> "alpha 1"
   },
@@ -688,9 +691,9 @@ M$ParametersExt = {
   tanb == {
     ParameterType    -> External,
     BlockName        -> N2HDMBLOCK,
-    Value            -> 15.0,
+    Value            -> 0.1,
     TeX              -> Subscript[t,\[Beta]],
-    Description      -> "vev ratio Tan beta = v2/v1"
+    Description      -> "tan beta"
   },
   vev3 == {
     ParameterType    -> External,
@@ -703,7 +706,7 @@ M$ParametersExt = {
   m12 == {
     ParameterType    -> External,
     BlockName        -> N2HDMBLOCK,
-    Value            -> 1990.,
+    Value            -> 100.,
     TeX              -> Subscript[m, 12],
     Description      -> "Soft breaking parameter"
   }
@@ -827,84 +830,102 @@ M$ParametersIntN2HDM = {
 (*-----------------------------------*)
 
 (*  *)
-  sb == {
+  sinb == {
     ParameterType -> Internal,
     Value         -> tanb/Sqrt[1 + tanb^2],
     TeX           -> Subscript[s,\[Beta]],
-    InteractionOrder -> {QED,0},
     Description   -> "sin beta"
   },
-  cb == {
+  cosb == {
     ParameterType -> Internal,
-    Value         -> Sqrt[1-sb^2],
-    InteractionOrder -> {QED,0},
+    Value         -> 1/Sqrt[1 + tanb^2],
     TeX           -> Subscript[c,\[Beta]],
     Description   -> "cos beta"
   },
   RA == { 
     ParameterType -> Internal,
     Indices       -> {Index[CPevenscalar], Index[CPevenscalar]},
-    (* Hermitian     -> True, *)
-    Orthogonal    -> True, 
-    (* Unitary       -> True,*) 
+    Hermitian     -> True,
+    Orthogonal    -> True,
     Value -> {RA[1,1] :> Cos[a1] Cos[a2], RA[1,2] :> Sin[a1] Cos[a2], RA[1,3] :> Sin[a2],
               RA[2,1] :> - Cos[a1] Sin[a2] Sin[a3] - Sin[a1] Cos[a3],
-              RA[2,2] :> Cos[a1] Cos[a3] - Sin[a1] Sin[a2] Sin[a3], RA[2,3] :> Cos[a2] Sin[a3],
+                RA[2,2] :> Cos[a1] Cos[a3] - Sin[a1] Sin[a2] Sin[a3], RA[2,3] :> Cos[a2] Sin[a3],
               RA[3,1] :> - Cos[a1] Sin[a2] Cos[a3] + Sin[a1] Sin[a3],
               RA[3,2] :> - Cos[a1] Sin[a3] - Sin[a1] Sin[a2] Cos[a3], RA[3,3] :> Cos[a2] Cos[a3]},
     TeX           -> Subscript[R,\[Alpha]],
     Description   -> "Ralpha-Matrix"
-  },
-  mu2 == {
-    ParameterType -> Internal,
-    Value         -> m12/(sb cb),
-    Description   -> "change of basis 1612.01309"
   }
 };
 
 M$Parameters = Join[M$ParametersExt, M$ParametersInt, M$ParametersIntN2HDM];
 
 massparam={
-  m11 -> m12 sb/cb - ( lam1 vev^2 cb^2 + (lam3 + lam4 + lam5) vev^2 sb^2)/2, (* + lam7 vev3^2 )/2, *)
-  m22 -> m12 cb/sb - ( (lam3 + lam4 + lam5) vev^2 cb^2 + lam2 vev^2 sb^2)/2, (* + lam8 vev3^2 )/2, *)
-  m3 -> - ( lam7 vev^2 cb^2 + lam8 vev^2 sb^2 + lam6 vev3^2 )/2
+  m11 -> m12^2 sinb/cosb - ( lam1 vev^2 cosb^2 + (lam3 + lam4 + lam5) vev^2 sinb^2 + lam7 vev3^2 )/2,
+  m22 -> m12^2 cosb/sinb - ( (lam3 + lam4 + lam5) vev^2 cosb^2 + lam2 vev^2 sinb^2 + lam8 vev3^2 )/2,
+  m3 -> - ( lam7 vev^2 cosb^2 + lam8 vev^2 sinb^2 + lam6 vev3^2 )/2
   };
 
-(* from 1612.01309 *)
 couparam={
-  lam1 -> ( - mu2 sb^2 + Mh1^2 RA[1,1] RA[1,1] + Mh2^2 RA[2,1] RA[2,1] + Mh3^2 RA[3,1] RA[3,1] )/vev^2/cb^2,
-  lam2 -> ( - mu2 cb^2 + Mh1^2 RA[1,2] RA[1,2] + Mh2^2 RA[2,2] RA[2,2] + Mh3^2 RA[3,2] RA[3,2] )/vev^2/sb^2,
-  lam3 -> ( - mu2 + ( Mh1^2 RA[1,1] RA[1,2] + Mh2^2 RA[2,1] RA[2,2] + Mh3^2 RA[3,1] RA[3,2] )/(cb sb) + 2 MHP^2 )/vev^2,
-  lam4 -> (   mu2 + MA0^2 - 2 MHP^2 )/vev^2,
-  lam5 -> (   mu2 - MA0^2 )/vev^2,
+  lam1 -> ( - m12^2 sinb/cosb + Mh1^2 RA[1,1] RA[1,1] + Mh2^2 RA[2,1] RA[2,1] + Mh3^2 RA[3,1] RA[3,1] )/vev^2/cosb^2,
+  lam2 -> ( - m12^2 cosb/sinb + Mh1^2 RA[1,2] RA[1,2] + Mh2^2 RA[2,2] RA[2,2] + Mh3^2 RA[3,2] RA[3,2] )/vev^2/sinb^2,
+  lam3 -> ( ( - m12^2 + Mh1^2 RA[1,1] RA[1,2] + Mh2^2 RA[2,1] RA[2,2] + Mh3^2 RA[3,1] RA[3,2] )/cosb/sinb + 2 MHP^2 )/vev^2,
+  lam4 -> ( m12^2/cosb/sinb + MA0^2 - 2 MHP^2 )/vev^2,
+  lam5 -> ( m12^2/cosb/sinb - MA0^2 )/vev^2,
   lam6 -> ( Mh1^2 RA[1,3] RA[1,3] + Mh2^2 RA[2,3] RA[2,3] + Mh3^2 RA[3,3] RA[3,3] )/vev3^2,
-  lam7 -> ( Mh1^2 RA[1,1] RA[1,3] + Mh2^2 RA[2,1] RA[2,3] + Mh3^2 RA[3,1] RA[3,3] )/(vev vev3 cb),
-  lam8 -> ( Mh1^2 RA[1,2] RA[1,3] + Mh2^2 RA[2,2] RA[2,3] + Mh3^2 RA[3,2] RA[3,3] )/(vev vev3 sb)
+  lam7 -> ( Mh1^2 RA[1,1] RA[1,3] + Mh2^2 RA[2,1] RA[2,3] + Mh3^2 RA[3,1] RA[3,3] )/vev/vev3/cosb,
+  lam8 -> ( Mh1^2 RA[1,2] RA[1,3] + Mh2^2 RA[2,2] RA[2,3] + Mh3^2 RA[3,2] RA[3,3] )/vev/vev3/sinb
   };
 
 (* ********************************* *)
 (* *****   N2HDM Lagrangian   ***** *)
 (* ********************************* *)
 
-(* load DiagonalCKMRA.rst restriction file *)
+(*  *)
+LGauge := Block[{mu,nu,ii,aa}, 
+  ExpandIndices[- 1/4 FS[B,mu,nu] FS[B,mu,nu] - 1/4 FS[Wi,mu,nu,ii] FS[Wi,mu,nu,ii] - 1/4 FS[G,mu,nu,aa] FS[G,mu,nu,aa], FlavorExpand->SU2W]];
 
-LGauge := Block[{mu,nu,ii,aa}, -1/4 FS[B,mu,nu] FS[B,mu,nu] - 1/4 FS[Wi,mu,nu,ii] FS[Wi,mu,nu,ii] - 1/4 FS[G,mu,nu,aa] FS[G,mu,nu,aa]];
+LFermions := Block[{mu}, 
+  ExpandIndices[I*(
+    QLbar.Ga[mu].DC[QL, mu] + LLbar.Ga[mu].DC[LL, mu] + uRbar.Ga[mu].DC[uR, mu] + dRbar.Ga[mu].DC[dR, mu] + lRbar.Ga[mu].DC[lR, mu]), 
+  FlavorExpand->{SU2W,SU2D}]/.{CKM[a_,b_] Conjugate[CKM[a_,c_]]->IndexDelta[b,c], CKM[b_,a_] Conjugate[CKM[c_,a_]]->IndexDelta[b,c]}];
 
-LFermions := Block[{mu}, I*(QLbar.Ga[mu].DC[QL, mu] + LLbar.Ga[mu].DC[LL, mu] + uRbar.Ga[mu].DC[uR, mu] + dRbar.Ga[mu].DC[dR, mu] + lRbar.Ga[mu].DC[lR, mu])];
-
-LYukawa := Block[{sp,ii,jj,cc,ff1,ff2,ff3,yuk,feynmangaugerules},
-  yuk =
-   -yd[ff2, ff3] CKM[ff1, ff2] QLbar[sp, ii, ff1, cc].dR [sp, ff3, cc] Phi2[ii] -
-    yl[ff1, ff3] LLbar[sp, ii, ff1].lR [sp, ff3] Phi1[ii] -
-    yu[ff1, ff2] QLbar[sp, ii, ff1, cc].uR [sp, ff2, cc] Phi2bar[jj] Eps[ii, jj];
-  yuk+HC[yuk]
+LHiggs := Block[{ii,jj,mu,VN2HDM,feynmangaugerules},
+  feynmangaugerules = If[Not[FeynmanGauge], {G0|GP|GPbar ->0}, {}];
+  
+  (* *************************************** *)
+  (* *****   N2HDM Scalar Potential   ***** *)
+  (* *************************************** *)
+  
+  (*  *)
+  VN2HDM = m11 Phibar[ii] Phi[ii] + lam1/2 Phibar[ii] Phi[ii] Phibar[jj] Phi[jj]
+         + m22 Phi2bar[ii] Phi2[ii] + lam2/2 Phi2bar[ii] Phi2[ii] Phi2bar[jj] Phi2[jj]
+         - m12^2 ( Phibar[ii] Phi2[ii] + Phi2bar[ii] Phi[ii] )
+         + lam3 Phibar[ii] Phi[ii] Phi2bar[jj] Phi2[jj] + lam4 Phibar[ii] Phi2[ii] Phi2bar[jj] Phi[jj]
+         + lam5/2 ( Phibar[ii] Phi2[ii] Phibar[jj] Phi2[jj] + Phi2bar[ii] Phi[ii] Phi2bar[jj] Phi[jj] )
+         + m3/2 Phi3^2 + lam6/8 Phi3^4 + lam7/2 Phibar[ii] Phi[ii] Phi3^2 + lam8/2 Phi2bar[ii] Phi2[ii] Phi3^2 ;
+  VN2HDM = VN2HDM/.massparam/.couparam;
+  
+  Lscalar = ExpandIndices[DC[Phibar[ii],mu] DC[Phi[ii],mu] + DC[Phi2bar[ii],mu] DC[Phi2[ii],mu] + del[Phi3,mu] del[Phi3,mu]/2 - VN2HDM, FlavorExpand->{SU2D,SU2W,CPevenscalar}];
+  Lscalar = Lscalar/.{RA[a_,b_] Transpose[RA[c_,a_]]->IndexDelta[b,c], RA[b_,a_] Transpose[RA[a_,c_]]->IndexDelta[b,c]};
+  Lscalar/.feynmangaugerules
  ];
 
-LGhost := Block[{LGh1,LGhw,LGhs,LGhphi,mu, ii,generators,gh,ghbar,Vectorize,phi1,phi2,togoldstones,doublet,doublet0},
-  (* Pure gauge piece *)
+LYukawa := Block[{sp,ii,jj,cc,ff1,ff2,ff3,yuk,feynmangaugerules},
+  feynmangaugerules = If[Not[FeynmanGauge], {G0|GP|GPbar ->0}, {}];
+ 
+  yuk = ExpandIndices[
+   -yd[ff2, ff3] CKM[ff1, ff2] QLbar[sp, ii, ff1, cc].dR [sp, ff3, cc] Phi[ii] - 
+    yl[ff1, ff3] LLbar[sp, ii, ff1].lR [sp, ff3] Phi2[ii] - 
+    yu[ff1, ff2] QLbar[sp, ii, ff1, cc].uR [sp, ff2, cc] Phibar[jj] Eps[ii, jj], FlavorExpand -> SU2D];
+  yuk = yuk /. { CKM[a_, b_] Conjugate[CKM[a_, c_]] -> IndexDelta[b, c], CKM[b_, a_] Conjugate[CKM[c_, a_]] -> IndexDelta[b, c]};
+  yuk+HC[yuk]/.feynmangaugerules/.{RA[a_,b_] Transpose[RA[c_,a_]]->IndexDelta[b,c], RA[b_,a_] Transpose[RA[a_,c_]]->IndexDelta[b,c]}
+ ];
+
+LGhost := Block[{LGh1,LGhw,LGhs,LGhphi,mu, generators,gh,ghbar,Vectorize,phi1,phi2,togoldstones,doublet,doublet0},
+  (* Pure gauge piece *) 	
   LGh1 = -ghBbar.del[DC[ghB,mu],mu];
   LGhw = -ghWibar[ii].del[DC[ghWi[ii],mu],mu];
-  LGhs = -ghGbar.del[DC[ghG,mu],mu];
+  LGhs = -ghGbar[ii].del[DC[ghG[ii],mu],mu];
 
   (* Scalar pieces: see Peskin pages 739-742 *)
   (* phi1 and phi2 are the real degrees of freedom of GP *)
@@ -912,33 +933,12 @@ LGhost := Block[{LGh1,LGhw,LGhs,LGhphi,mu, ii,generators,gh,ghbar,Vectorize,phi1
   gh    = {ghB, ghWi[1], ghWi[2], ghWi[3]};
   ghbar = {ghBbar, ghWibar[1], ghWibar[2], ghWibar[3]};
   generators = {-I/2 g1 IdentityMatrix[2], -I/2 gw PauliSigma[1], -I/2 gw PauliSigma[2], -I/2 gw PauliSigma[3]};
-  doublet = Expand[{(-I phi1 - phi2)/Sqrt[2], Phi[2]} /. MR$Definitions /. vev -> 0];
+  doublet = Expand[{(-I phi1 - phi2)/Sqrt[2], Phi[2]} /. MR$Definitions /. vev -> 0]; 
   doublet0 = {0, vev/Sqrt[2]};
   Vectorize[{a_, b_}]:= Simplify[{Sqrt[2] Re[Expand[a]], Sqrt[2] Im[Expand[a]], Sqrt[2] Re[Expand[b]], Sqrt[2] Im[Expand[b]]}/.{Im[_]->0, Re[num_]->num}];
   togoldstones := {phi1 -> (GP + GPbar)/Sqrt[2], phi2 -> (-GP + GPbar)/(I Sqrt[2])};
   LGhphi=Plus@@Flatten[Table[-ghbar[[kkk]].gh[[lll]] Vectorize[generators[[kkk]].doublet0].Vectorize[generators[[lll]].(doublet+doublet0)],{kkk,4},{lll,4}]] /.togoldstones;
 
-LGhs + If[FeynmanGauge, LGh1 + LGhw + LGhphi,0]];
-
-LHiggs := Block[{ii,jj,mu,V2HDM,feynmangaugerules},
-  feynmangaugerules = If[Not[FeynmanGauge], {G0|GP|GPbar ->0}, {}];
-  
-  (* *************************************** *)
-  (* *****   N2HDM Scalar Potential   ***** *)
-  (* *************************************** *)
-  
-  V2HDM = m11 Phi1bar[ii] Phi1[ii] + lam1/2 Phi1bar[ii] Phi1[ii] Phi1bar[jj] Phi1[jj]
-         + m22 Phi2bar[ii] Phi2[ii] + lam2/2 Phi2bar[ii] Phi2[ii] Phi2bar[jj] Phi2[jj]
-         - m12 ( Phi1bar[ii] Phi2[ii] + Phi2bar[ii] Phi1[ii] )
-         + lam3 Phi1bar[ii] Phi1[ii] Phi2bar[jj] Phi2[jj] + lam4 Phi1bar[ii] Phi2[ii] Phi2bar[jj] Phi1[jj]
-         + lam5/2 ( Phi1bar[ii] Phi2[ii] Phi1bar[jj] Phi2[jj] + Phi2bar[ii] Phi1[ii] Phi2bar[jj] Phi1[jj] );
-         + m3/2 Phi3^2 + lam6/8 Phi3^4 + lam7/2 Phi1bar[ii] Phi1[ii] Phi3^2 + lam8/2 Phi2bar[ii] Phi2[ii] Phi3^2 ; 
-  V2HDM = V2HDM/.massparam/.couparam;
-  
-  Lscalar = ExpandIndices[DC[Phi1bar[ii],mu] DC[Phi1[ii],mu] + DC[Phi2bar[ii],mu] DC[Phi2[ii],mu] + del[Phi3,mu] del[Phi3,mu]/2 - V2HDM, FlavorExpand->{SU2D,SU2W,CPevenscalar}];
-  Lscalar = Lscalar/.{RA[a_,b_] Transpose[RA[c_,a_]]->IndexDelta[b,c], RA[b_,a_] Transpose[RA[a_,c_]]->IndexDelta[b,c]};
-  Lscalar/.feynmangaugerules 
-];
-
+ExpandIndices[ LGhs + If[FeynmanGauge, LGh1 + LGhw + LGhphi,0], FlavorExpand->SU2W]];
 
 LN2HDM:= LGauge + LFermions + LHiggs + LYukawa + LGhost;
