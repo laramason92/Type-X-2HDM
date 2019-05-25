@@ -1,9 +1,8 @@
 (***************************************************************************************************************)
 (******     This is the FeynRules mod-file for the Next-to-Minimal 2-Higgs-Doublet Model                  ******)
 (******                                                                                                   ******)
-(******     Authors: Lara Mason                                                                           ******)
-(******     help from R. Islam, M. Kumar                                                                  ******)
-(******                                                                                                   ******)
+(******     Authors: L.Mason                                                                              ******)
+(******     with help from M. Kumar, R. Islam                                                             ******)
 (****** Choose whether Feynman gauge is desired.                                                          ******)
 (****** If set to False, unitary gauge is assumed.                                                          ****)
 (****** Feynman gauge is especially useful for CalcHEP/CompHEP where the calculation is 10-100 times faster. ***)
@@ -13,7 +12,7 @@
 (* ************************** *)
 (* *****  Information   ***** *)
 (* ************************** *)
-M$ModelName = "2-Higgs-Doublet Model+S";
+M$ModelName = "2HDM+S";
 
 M$Information = {
   Authors      -> {"L. Mason"}, 
@@ -32,6 +31,7 @@ FeynmanGauge = True;
 FR$LoopSwitches = {{Gf, MW}};
 FR$RmDblExt = { ymb -> MB, ymc -> MC, ymdo -> MD, yme -> Me, 
    ymm -> MMU, yms -> MS, ymt -> MT, ymtau -> MTA, ymup -> MU};
+
 
 (* ************************** *)
 (* *****      vevs      ***** *)
@@ -71,18 +71,18 @@ M$GaugeGroups = {
 (* *****    Indices     ***** *)
 (* ************************** *)
 
-IndexRange[Index[SU2W      ]] = Unfold[Range[3]]; 
-IndexRange[Index[SU2D      ]] = Unfold[Range[2]];
-IndexRange[Index[Gluon     ]] = NoUnfold[Range[8]];
-IndexRange[Index[Colour    ]] = NoUnfold[Range[3]]; 
-IndexRange[Index[Generation]] = Range[3];
+IndexRange[Index[SU2W        ]] = Unfold[Range[3]]; 
+IndexRange[Index[SU2D        ]] = Unfold[Range[2]];
+IndexRange[Index[Gluon       ]] = NoUnfold[Range[8]];
+IndexRange[Index[Colour      ]] = NoUnfold[Range[3]]; 
+IndexRange[Index[Generation  ]] = Range[3];
 IndexRange[Index[CPevenscalar]] = Range[3];
 
-IndexStyle[SU2W,       j];
-IndexStyle[SU2D,       k];
-IndexStyle[Gluon,      a];
-IndexStyle[Colour,     m];
-IndexStyle[Generation, f];
+IndexStyle[SU2W,         j];
+IndexStyle[SU2D,         k];
+IndexStyle[Gluon,        a];
+IndexStyle[Colour,       m];
+IndexStyle[Generation,   f];
 IndexStyle[CPevenscalar, p];
 
 
@@ -96,36 +96,31 @@ M$InteractionOrderHierarchy = {
   {QED, 2}
 };
 
-
 (* ************************** *)
 (* **** Particle classes **** *)
 (* ************************** *)
 M$ClassesDescription = {
 
-(*---------------------------------------------*)
-(*** SM Gauge bosons: physical vector fields ***)
-(*---------------------------------------------*)
-
-(*  *)
-  V[1] == { 
-    ClassName       -> A, 
-    SelfConjugate   -> True,  
-    Mass            -> 0,  
-    Width           -> 0,  
-    ParticleName    -> "a", 
-    PDG             -> 22, 
-    PropagatorLabel -> "a", 
-    PropagatorType  -> W, 
+(* Gauge bosons: physical vector fields *)
+  V[1] == {
+    ClassName       -> A,
+    SelfConjugate   -> True,
+    Mass            -> 0,
+    Width           -> 0,
+    ParticleName    -> "a",
+    PDG             -> 22,
+    PropagatorLabel -> "a",
+    PropagatorType  -> W,
     PropagatorArrow -> None,
     FullName        -> "Photon"
   },
-  V[2] == { 
-    ClassName       -> Z, 
+  V[2] == {
+    ClassName       -> Z,
     SelfConjugate   -> True,
     Mass            -> {MZ, 91.1876},
     Width           -> {WZ, 2.4952},
-    ParticleName    -> "Z", 
-    PDG             -> 23, 
+    ParticleName    -> "Z",
+    PDG             -> 23,
     PropagatorLabel -> "Z",
     PropagatorType  -> Sine,
     PropagatorArrow -> None,
@@ -139,7 +134,7 @@ M$ClassesDescription = {
     ParticleName     -> "W+",
     AntiParticleName -> "W-",
     QuantumNumbers   -> {Q -> 1},
-    PDG              -> 24, 
+    PDG              -> 24,
     PropagatorLabel  -> "W",
     PropagatorType   -> Sine,
     PropagatorArrow  -> Forward,
@@ -151,7 +146,7 @@ M$ClassesDescription = {
     Indices          -> {Index[Gluon]},
     Mass             -> 0,
     Width            -> 0,
-    ParticleName     -> "g", 
+    ParticleName     -> "g",
     PDG              -> 21,
     PropagatorLabel  -> "G",
     PropagatorType   -> C,
@@ -159,18 +154,14 @@ M$ClassesDescription = {
     FullName         -> "G"
   },
 
-(*-------------------------------------------------*)
-(*** Ghosts: related to physical SM gauge bosons ***)
-(*-------------------------------------------------*)
-
-(*  *)
-  U[1] == { 
-    ClassName       -> ghA, 
+(* Ghosts: related to physical gauge bosons *)
+  U[1] == {
+    ClassName       -> ghA,
     SelfConjugate   -> False,
     Ghost           -> A,
     QuantumNumbers  -> {GhostNumber -> 1},
     Mass            -> 0,
-    Width	    -> 0,
+    Width           -> 0,
     PropagatorLabel -> "uA",
     PropagatorType  -> GhostDash,
     PropagatorArrow -> Forward
@@ -180,78 +171,70 @@ M$ClassesDescription = {
     SelfConjugate   -> False,
     Ghost           -> Z,
     QuantumNumbers  -> {GhostNumber -> 1},
-    Mass            -> {MZ,91.1876},  
-    Width	    -> {WZ, 2.4952},
+    Mass            -> {MZ,91.1876},
+    Width           -> {WZ, 2.4952},
     PropagatorLabel -> "uZ",
     PropagatorType  -> GhostDash,
     PropagatorArrow -> Forward
   },
-  U[31] == { 
+  U[31] == {
     ClassName       -> ghWp,
-    SelfConjugate   -> False, 
+    SelfConjugate   -> False,
     Ghost           -> W,
     QuantumNumbers  -> {GhostNumber -> 1, Q -> 1},
-    Mass            -> {MW,Internal}, 
-    Width           -> {WW, 2.085}, 
+    Mass            -> {MW,Internal},
+    Width           -> {WW, 2.085},
     PropagatorLabel -> "uWp",
-    PropagatorType  -> GhostDash, 
+    PropagatorType  -> GhostDash,
     PropagatorArrow -> Forward
   },
-  U[32] == { 
+  U[32] == {
     ClassName       -> ghWm,
-    SelfConjugate   -> False, 
+    SelfConjugate   -> False,
     Ghost           -> Wbar,
     QuantumNumbers  -> {GhostNumber -> 1, Q -> -1},
-    Mass            -> {MW,Internal}, 
+    Mass            -> {MW,Internal},
     Width           -> {WW, 2.085},
     PropagatorLabel -> "uWm",
-    PropagatorType  -> GhostDash, 
+    PropagatorType  -> GhostDash,
     PropagatorArrow -> Forward
   },
-  U[4] == { 
-    ClassName       -> ghG, 
+  U[4] == {
+    ClassName       -> ghG,
     SelfConjugate   -> False,
     Indices         -> {Index[Gluon]},
     Ghost           -> G,
     PDG             -> 82,
-    QuantumNumbers  ->{GhostNumber -> 1}, 
+    QuantumNumbers  ->{GhostNumber -> 1},
     Mass            -> 0,
-    Width	    -> 0,
+    Width           -> 0,
     PropagatorLabel -> "uG",
     PropagatorType  -> GhostDash,
     PropagatorArrow -> Forward
   },
 
-(*-----------------------------------------------*)
-(*** SM Gauge bosons: unphysical vector fields ***)
-(*-----------------------------------------------*)
-
-(*  *)
-  V[11] == { 
-    ClassName     -> B, 
-    Unphysical    -> True, 
-    SelfConjugate -> True, 
-    Definitions   -> { B[mu_] -> -sw Z[mu]+cw A[mu]} 
+(* Gauge bosons: unphysical vector fields *)
+  V[11] == {
+    ClassName     -> B,
+    Unphysical    -> True,
+    SelfConjugate -> True,
+    Definitions   -> { B[mu_] -> -sw Z[mu]+cw A[mu]}
   },
-  V[12] == { 
+  V[12] == {
     ClassName     -> Wi,
     Unphysical    -> True,
-    SelfConjugate -> True, 
+    SelfConjugate -> True,
     Indices       -> {Index[SU2W]},
     FlavorIndex   -> SU2W,
     Definitions   -> { Wi[mu_,1] -> (Wbar[mu]+W[mu])/Sqrt[2], Wi[mu_,2] -> (Wbar[mu]-W[mu])/(I*Sqrt[2]), Wi[mu_,3] -> cw Z[mu] + sw A[mu]}
   },
 
-(*---------------------------------------------------*)
-(*** Ghosts: related to unphysical SM gauge bosons ***)
-(*---------------------------------------------------*)
-
-(*  *)
+(* Ghosts: related to unphysical gauge bosons *)
   U[11] == {
-    ClassName     -> ghB, 
+    ClassName     -> ghB,
     Unphysical    -> True,
     SelfConjugate -> False,
-    Ghost         -> B, 
+    Ghost         -> B,
     Definitions   -> { ghB -> -sw ghZ + cw ghA}
   },
   U[12] == {
@@ -264,11 +247,7 @@ M$ClassesDescription = {
     Definitions   -> { ghWi[1] -> (ghWp+ghWm)/Sqrt[2], ghWi[2] -> (ghWm-ghWp)/(I*Sqrt[2]), ghWi[3] -> cw ghZ+sw ghA}
   } ,
 
-(*----------------------------------*)
-(*** SM Fermions: physical fields ***)
-(*----------------------------------*)
-
-(*  *)
+(* Fermions: physical fields *)
   F[1] == {
     ClassName        -> vl,
     ClassMembers     -> {ve,vm,vt},
@@ -301,7 +280,7 @@ M$ClassesDescription = {
     PDG              -> {11, 13, 15},
     ParticleName     -> {"e-", "mu-", "ta-"},
     AntiParticleName -> {"e+", "mu+", "ta+"},
-    FullName         -> {"Electron", "Muon", "Tau"} 
+    FullName         -> {"Electron", "Muon", "Tau"}
   },
   F[3] == {
     ClassName        -> uq,
@@ -315,7 +294,7 @@ M$ClassesDescription = {
     PropagatorLabel  -> {"uq", "u", "c", "t"},
     PropagatorType   -> Straight,
     PropagatorArrow  -> Forward,
-    PDG              -> {2, 4, 6}, 
+    PDG              -> {2, 4, 6},
     ParticleName     -> {"u",  "c",  "t" },
     AntiParticleName -> {"u~", "c~", "t~"},
     FullName         -> {"u-quark", "c-quark", "t-quark"}
@@ -330,66 +309,62 @@ M$ClassesDescription = {
     Width            -> 0,
     QuantumNumbers   -> {Q -> -1/3},
     PropagatorLabel  -> {"dq", "d", "s", "b"},
-    PropagatorType   -> Straight, 
+    PropagatorType   -> Straight,
     PropagatorArrow  -> Forward,
     PDG              -> {1,3,5},
     ParticleName     -> {"d",  "s",  "b" },
     AntiParticleName -> {"d~", "s~", "b~"},
     FullName         -> {"d-quark", "s-quark", "b-quark"}
   },
-
-(*---------------------------------------------*)
-(*** Fermions: related to physical SM fields ***)
-(*---------------------------------------------*)
-
-(*  *)
-  F[11] == { 
-    ClassName      -> LL, 
-    Unphysical     -> True, 
+(* Fermions: unphysical fields *)
+  F[11] == {
+    ClassName      -> LL,
+    Unphysical     -> True,
     Indices        -> {Index[SU2D], Index[Generation]},
     FlavorIndex    -> SU2D,
     SelfConjugate  -> False,
     QuantumNumbers -> {Y -> -1/2},
     Definitions    -> { LL[sp1_,1,ff_] :> Module[{sp2}, ProjM[sp1,sp2] vl[sp2,ff]], LL[sp1_,2,ff_] :> Module[{sp2}, ProjM[sp1,sp2] l[sp2,ff]] }
   },
-  F[12] == { 
-    ClassName      -> lR, 
-    Unphysical     -> True, 
+  F[12] == {
+    ClassName      -> lR,
+    Unphysical     -> True,
     Indices        -> {Index[Generation]},
     FlavorIndex    -> Generation,
     SelfConjugate  -> False,
     QuantumNumbers -> {Y -> -1},
     Definitions    -> { lR[sp1_,ff_] :> Module[{sp2}, ProjP[sp1,sp2] l[sp2,ff]] }
   },
-  F[13] == { 
-    ClassName      -> QL, 
-    Unphysical     -> True, 
+  F[13] == {
+    ClassName      -> QL,
+    Unphysical     -> True,
     Indices        -> {Index[SU2D], Index[Generation], Index[Colour]},
     FlavorIndex    -> SU2D,
     SelfConjugate  -> False,
     QuantumNumbers -> {Y -> 1/6},
-    Definitions    -> { 
-      QL[sp1_,1,ff_,cc_] :> Module[{sp2}, ProjM[sp1,sp2] uq[sp2,ff,cc]], 
+    Definitions    -> {
+      QL[sp1_,1,ff_,cc_] :> Module[{sp2}, ProjM[sp1,sp2] uq[sp2,ff,cc]],
       QL[sp1_,2,ff_,cc_] :> Module[{sp2,ff2}, CKM[ff,ff2] ProjM[sp1,sp2] dq[sp2,ff2,cc]] }
   },
-  F[14] == { 
-    ClassName      -> uR, 
-    Unphysical     -> True, 
+  F[14] == {
+    ClassName      -> uR,
+    Unphysical     -> True,
     Indices        -> {Index[Generation], Index[Colour]},
     FlavorIndex    -> Generation,
     SelfConjugate  -> False,
     QuantumNumbers -> {Y -> 2/3},
     Definitions    -> { uR[sp1_,ff_,cc_] :> Module[{sp2}, ProjP[sp1,sp2] uq[sp2,ff,cc]] }
   },
-  F[15] == { 
-    ClassName      -> dR, 
-    Unphysical     -> True, 
+  F[15] == {
+    ClassName      -> dR,
+    Unphysical     -> True,
     Indices        -> {Index[Generation], Index[Colour]},
     FlavorIndex    -> Generation,
     SelfConjugate  -> False,
     QuantumNumbers -> {Y -> -1/3},
     Definitions    -> { dR[sp1_,ff_,cc_] :> Module[{sp2}, ProjP[sp1,sp2] dq[sp2,ff,cc]] }
   },
+
 
 (*----------------------------*)
 (*** Higgs: physical scalar ***)
@@ -398,19 +373,21 @@ M$ClassesDescription = {
 (*  *)
   S[1] == {
     ClassName       -> H,
-    ClassMembers    -> {h1, h2, h3},
+    ClassMembers    -> {h1, h2, S},
     Indices         -> {Index[CPevenscalar]},
     FlavorIndex     -> CPevenscalar,
     SelfConjugate   -> True,
-    Mass            -> {Mh, {Mh1,125}, {Mh2,150}, {Mh3,270}},
-    Width           -> {{Wh1,0.00407}, {Wh2,10.85}, {Wh3,20.85}},
-    PropagatorLabel -> {"h", "h1", "h2", "h3"},
+    Mass            -> {Mh, {Mh1,125}, {Mh2,150}, {MhS,270}},
+    Width           -> {{Wh1,0.00407}, {Wh2,10.85}, {WS,20.85}},
+    PropagatorLabel -> {"h", "h1", "h2", "S"},
     PropagatorType  -> D,
     PropagatorArrow -> None,
     PDG             -> {25, 35, 4000005},
-    ParticleName    -> {"h1", "h2", "h3"},
-    FullName        -> {"SM Higgs boson", "2HDM CP-even Higgs boson", "N2HDM CP-even Higgs boson"} 
+    ParticleName    -> {"h1", "h2", "S"},
+    FullName        -> {"SM Higgs boson", "2HDM CP-even Higgs boson", "2HDMS CP-even Higgs boson"} 
   },
+
+  (* Higgs: physical scalars  *)
   S[2] == {
     ClassName       -> G0,
     SelfConjugate   -> True,
@@ -442,7 +419,7 @@ M$ClassesDescription = {
   S[4] == {
     ClassName       -> A0,
     SelfConjugate   -> True,
-    Mass            -> {MA0,300},
+    Mass            -> {MA0,250},
     Width           -> {WA0,20.85},
     PropagatorLabel -> "A0",
     PropagatorType  -> D,
@@ -454,7 +431,7 @@ M$ClassesDescription = {
   S[5] == {
     ClassName        -> HP,
     SelfConjugate    -> False,
-    Mass             -> {MHP, 300},
+    Mass             -> {MHP, 250},
     QuantumNumbers   -> {Q -> 1},
     Width            -> {WHP, 20.85},
     PropagatorLabel  -> "HP",
@@ -466,11 +443,6 @@ M$ClassesDescription = {
     FullName         -> "HP"
   },
 
-(*----------------------------------------*)
-(*** Higgs: related to physical scalars ***)
-(*----------------------------------------*)
-
-(*  *)
   S[11] == { 
     ClassName      -> rho, 
     Unphysical     -> True, 
@@ -658,43 +630,40 @@ M$ParametersExt = {
   },
 
 (*----------------------------------*)
-(***  N2HDM external parameters   ***)
+(***  2HDMS external parameters   ***)
 (*----------------------------------*)
-
-(* angles to diagonalise the CP even sector *)
-(* to get to the SM limit where S decouples, send a2, a3 -> 0 and a1 -> a + pi/2 *)
 
   a1 == {
     ParameterType    -> External,
-    BlockName        -> N2HDMBLOCK,
-    Value            -> 0.1, (* ArcTan[tanbeta], *)
+    BlockName        -> 2HDMSBLOCK,
+    Value            -> 0.1,
     TeX              -> Subscript[\[Alpha],1],
     Description      -> "alpha 1"
   },
   a2 == {
     ParameterType    -> External,
-    BlockName        -> N2HDMBLOCK,
+    BlockName        -> 2HDMSBLOCK,
     Value            -> 0.1,
     TeX              -> Subscript[\[Alpha],2],
     Description      -> "alpha 2"
   },
   a3 == {
     ParameterType    -> External,
-    BlockName        -> N2HDMBLOCK,
+    BlockName        -> 2HDMSBLOCK,
     Value            -> 0.1,
     TeX              -> Subscript[\[Alpha],3],
     Description      -> "alpha 3"
   },
   tanb == {
     ParameterType    -> External,
-    BlockName        -> N2HDMBLOCK,
-    Value            -> 15.0,
+    BlockName        -> 2HDMSBLOCK,
+    Value            -> 0.1,
     TeX              -> Subscript[t,\[Beta]],
-    Description      -> "vev ratio Tan beta = v2/v1"
+    Description      -> "tan beta"
   },
   vev3 == {
     ParameterType    -> External,
-    BlockName        -> N2HDMBLOCK,
+    BlockName        -> 2HDMSBLOCK,
     Value            -> 500., 
     InteractionOrder -> {QED,-1},
     TeX              -> Subscript[v, 3],
@@ -702,8 +671,8 @@ M$ParametersExt = {
   },
   m12 == {
     ParameterType    -> External,
-    BlockName        -> N2HDMBLOCK,
-    Value            -> 1990.,
+    BlockName        -> 2HDMSBLOCK,
+    Value            -> 100.,
     TeX              -> Subscript[m, 12],
     Description      -> "Soft breaking parameter"
   }
@@ -820,41 +789,101 @@ M$ParametersInt = {
     Description -> "CKM-Matrix"}
 };
 
-M$ParametersIntN2HDM = {
+M$ParametersInt2HDMS = {
 
-(*-----------------------------------*)
-(***  N2HDM Internal parameters   ***)
-(*-----------------------------------*)
-
-(*  *)
   sb == {
     ParameterType -> Internal,
     Value         -> tanb/Sqrt[1 + tanb^2],
     TeX           -> Subscript[s,\[Beta]],
-    InteractionOrder -> {QED,0},
     Description   -> "sin beta"
   },
   cb == {
     ParameterType -> Internal,
-    Value         -> Sqrt[1-sb^2],
-    InteractionOrder -> {QED,0},
+    Value         -> 1/Sqrt[1 + tanb^2],
     TeX           -> Subscript[c,\[Beta]],
     Description   -> "cos beta"
+  },
+  mu2 == {
+    ParameterType -> Internal,
+    Value         -> m12/(sb cb),
+    Description   -> "change of basis 1612.01309"
   },
   RA == { 
     ParameterType -> Internal,
     Indices       -> {Index[CPevenscalar], Index[CPevenscalar]},
     (* Hermitian     -> True, *)
-    Orthogonal    -> True, 
-    (* Unitary       -> True,*) 
-    Value -> {RA[1,1] :> Cos[a1] Cos[a2], RA[1,2] :> Sin[a1] Cos[a2], RA[1,3] :> Sin[a2],
-              RA[2,1] :> - Cos[a1] Sin[a2] Sin[a3] - Sin[a1] Cos[a3],
-              RA[2,2] :> Cos[a1] Cos[a3] - Sin[a1] Sin[a2] Sin[a3], RA[2,3] :> Cos[a2] Sin[a3],
-              RA[3,1] :> - Cos[a1] Sin[a2] Cos[a3] + Sin[a1] Sin[a3],
-              RA[3,2] :> - Cos[a1] Sin[a3] - Sin[a1] Sin[a2] Cos[a3], RA[3,3] :> Cos[a2] Cos[a3]},
+    Orthogonal    -> True,
+    Value ->  {RA[1,1] ->   Cos[a1] Cos[a2],                           RA[1,2] ->   Sin[a1] Cos[a2],                           RA[1,3] -> Sin[a2],
+               RA[2,1] -> - Cos[a1] Sin[a2] Sin[a3] - Sin[a1] Cos[a3], RA[2,2] ->   Cos[a1] Cos[a3] - Sin[a1] Sin[a2] Sin[a3], RA[2,3] -> Cos[a2] Sin[a3],
+               RA[3,1] -> - Cos[a1] Sin[a2] Cos[a3] + Sin[a1] Sin[a3], RA[3,2] -> - Cos[a1] Sin[a3] - Sin[a1] Sin[a2] Cos[a3], RA[3,3] -> Cos[a2] Cos[a3]},
     TeX           -> Subscript[R,\[Alpha]],
     Description   -> "Ralpha-Matrix"
   },
+
+  lam1 == {
+    ParameterType    -> Internal,
+    ComplexParameter -> False,
+    InteractionOrder -> {QED,2},
+    Value            -> ( -  mu2 sb^2 + Mh1^2 RA[1,1] RA[1,1] + Mh2^2 RA[2,1] RA[2,1] + MhS^2 RA[3,1] RA[3,1] )/vev^2/cb^2
+},
+  lam2 == {
+    ParameterType    -> Internal,
+    ComplexParameter -> False,
+    InteractionOrder -> {QED,2},
+    Value            -> ( -  mu2 cb^2 + Mh1^2 RA[1,2] RA[1,2] + Mh2^2 RA[2,2] RA[2,2] + MhS^2 RA[3,2] RA[3,2] )/vev^2/sb^2
+},
+  lam3 == {
+    ParameterType    -> Internal,
+    ComplexParameter -> False,
+    InteractionOrder -> {QED,2},
+    Value            -> ( - mu2 + ( Mh1^2 RA[1,1] RA[1,2] + Mh2^2 RA[2,1] RA[2,2] + MhS^2 RA[3,1] RA[3,2] )/(cb sb) + 2 MHP^2 )/vev^2 
+},
+  lam4 == {
+    ParameterType    -> Internal,
+    ComplexParameter -> False,
+    InteractionOrder -> {QED,2},
+    Value            -> ( mu2 + MA0^2 - 2 MHP^2 )/vev^2
+},
+  lam5 == {
+    ParameterType    -> Internal,
+    ComplexParameter -> False,
+    InteractionOrder -> {QED,2},
+    Value            -> ( mu2 - MA0^2 )/vev^2
+},
+  lam6 == {
+    ParameterType    -> Internal,
+    ComplexParameter -> False,
+    InteractionOrder -> {QED,2},
+    Value            -> ( Mh1^2 RA[1,3] RA[1,3] + Mh2^2 RA[2,3] RA[2,3] + MhS^2 RA[3,3] RA[3,3] )/vev3^2
+},
+  lam7 == {
+    ParameterType    -> Internal,
+    ComplexParameter -> False,
+    InteractionOrder -> {QED,2},
+    Value            -> ( Mh1^2 RA[1,1] RA[1,3] + Mh2^2 RA[2,1] RA[2,3] + MhS^2 RA[3,1] RA[3,3] )/vev/vev3/cb
+},
+  lam8 == {
+    ParameterType    -> Internal,
+    ComplexParameter -> False,
+    InteractionOrder -> {QED,2},
+    Value            -> ( Mh1^2 RA[1,2] RA[1,3] + Mh2^2 RA[2,2] RA[2,3] + MhS^2 RA[3,2] RA[3,3] )/vev/vev3/sb
+},
+
+  m11 == { 
+    ParameterType    -> Internal,
+    ComplexParameter -> False,
+    Value            -> m12 sb/cb - ( lam1 vev^2 cb^2 + (lam3 + lam4 + lam5) vev^2 sb^2 + lam7 vev3^2 )/2
+},
+  m22 == { 
+    ParameterType    -> Internal,
+    ComplexParameter -> False,
+    Value            -> m12 cb/sb - ( (lam3 + lam4 + lam5) vev^2 cb^2 + lam2 vev^2 sb^2 + lam8 vev3^2 )/2
+},
+  m3 == { 
+    ParameterType    -> Internal,
+    ComplexParameter -> False,
+    Value            -> - ( lam7 vev^2 cb^2 + lam8 vev^2 sb^2 + lam6 vev3^2 )/2
+},
   mu2 == {
     ParameterType -> Internal,
     Value         -> m12/(sb cb),
@@ -862,49 +891,43 @@ M$ParametersIntN2HDM = {
   }
 };
 
-M$Parameters = Join[M$ParametersExt, M$ParametersInt, M$ParametersIntN2HDM];
+M$Parameters = Join[M$ParametersExt, M$ParametersInt, M$ParametersInt2HDMS];
 
-massparam={
-  m11 -> m12 sb/cb - ( lam1 vev^2 cb^2 + (lam3 + lam4 + lam5) vev^2 sb^2)/2, (* + lam7 vev3^2 )/2, *)
-  m22 -> m12 cb/sb - ( (lam3 + lam4 + lam5) vev^2 cb^2 + lam2 vev^2 sb^2)/2, (* + lam8 vev3^2 )/2, *)
-  m3 -> - ( lam7 vev^2 cb^2 + lam8 vev^2 sb^2 + lam6 vev3^2 )/2
-  };
+LGauge := Block[{mu,nu,ii,aa}, 
+  ExpandIndices[- 1/4 FS[B,mu,nu] FS[B,mu,nu] - 1/4 FS[Wi,mu,nu,ii] FS[Wi,mu,nu,ii] - 1/4 FS[G,mu,nu,aa] FS[G,mu,nu,aa], FlavorExpand->SU2W]];
 
-(* from 1612.01309 *)
-couparam={
-  lam1 -> ( - mu2 sb^2 + Mh1^2 RA[1,1] RA[1,1] + Mh2^2 RA[2,1] RA[2,1] + Mh3^2 RA[3,1] RA[3,1] )/vev^2/cb^2,
-  lam2 -> ( - mu2 cb^2 + Mh1^2 RA[1,2] RA[1,2] + Mh2^2 RA[2,2] RA[2,2] + Mh3^2 RA[3,2] RA[3,2] )/vev^2/sb^2,
-  lam3 -> ( - mu2 + ( Mh1^2 RA[1,1] RA[1,2] + Mh2^2 RA[2,1] RA[2,2] + Mh3^2 RA[3,1] RA[3,2] )/(cb sb) + 2 MHP^2 )/vev^2,
-  lam4 -> (   mu2 + MA0^2 - 2 MHP^2 )/vev^2,
-  lam5 -> (   mu2 - MA0^2 )/vev^2,
-  lam6 -> ( Mh1^2 RA[1,3] RA[1,3] + Mh2^2 RA[2,3] RA[2,3] + Mh3^2 RA[3,3] RA[3,3] )/vev3^2,
-  lam7 -> ( Mh1^2 RA[1,1] RA[1,3] + Mh2^2 RA[2,1] RA[2,3] + Mh3^2 RA[3,1] RA[3,3] )/(vev vev3 cb),
-  lam8 -> ( Mh1^2 RA[1,2] RA[1,3] + Mh2^2 RA[2,2] RA[2,3] + Mh3^2 RA[3,2] RA[3,3] )/(vev vev3 sb)
-  };
+LFermions := Block[{mu}, 
+  ExpandIndices[I*(
+    QLbar.Ga[mu].DC[QL, mu] + LLbar.Ga[mu].DC[LL, mu] + uRbar.Ga[mu].DC[uR, mu] + dRbar.Ga[mu].DC[dR, mu] + lRbar.Ga[mu].DC[lR, mu]), FlavorExpand->{SU2W,SU2D}]];
 
-(* ********************************* *)
-(* *****   N2HDM Lagrangian   ***** *)
-(* ********************************* *)
-
-(* load DiagonalCKMRA.rst restriction file *)
-
-LGauge := Block[{mu,nu,ii,aa}, -1/4 FS[B,mu,nu] FS[B,mu,nu] - 1/4 FS[Wi,mu,nu,ii] FS[Wi,mu,nu,ii] - 1/4 FS[G,mu,nu,aa] FS[G,mu,nu,aa]];
-
-LFermions := Block[{mu}, I*(QLbar.Ga[mu].DC[QL, mu] + LLbar.Ga[mu].DC[LL, mu] + uRbar.Ga[mu].DC[uR, mu] + dRbar.Ga[mu].DC[dR, mu] + lRbar.Ga[mu].DC[lR, mu])];
+LHiggs := Block[{ii,jj,mu,V2HDMS,feynmangaugerules},
+  
+  V2HDMS = m11 Phi1bar[ii] Phi1[ii] + lam1/2 Phi1bar[ii] Phi1[ii] Phi1bar[jj] Phi1[jj]
+         + m22 Phi2bar[ii] Phi2[ii] + lam2/2 Phi2bar[ii] Phi2[ii] Phi2bar[jj] Phi2[jj]
+         - m12 ( Phi1bar[ii] Phi2[ii] + Phi2bar[ii] Phi1[ii] )
+         + lam3 Phi1bar[ii] Phi1[ii] Phi2bar[jj] Phi2[jj] + lam4 Phi1bar[ii] Phi2[ii] Phi2bar[jj] Phi1[jj]
+         + lam5/2 ( Phi1bar[ii] Phi2[ii] Phi1bar[jj] Phi2[jj] + Phi2bar[ii] Phi1[ii] Phi2bar[jj] Phi1[jj] )
+         + m3/2 Phi3^2 + lam6/8 Phi3^4 + lam7/2 Phi1bar[ii] Phi1[ii] Phi3^2 + lam8/2 Phi2bar[ii] Phi2[ii] Phi3^2 ;
+ 
+  
+  Lscalar = ExpandIndices[DC[Phi1bar[ii],mu] DC[Phi1[ii],mu] + DC[Phi2bar[ii],mu] DC[Phi2[ii],mu] + del[Phi3,mu] del[Phi3,mu]/2 - V2HDMS, FlavorExpand->{SU2D,SU2W,CPevenscalar}];
+  Lscalar/.{RA[a_,b_] Transpose[RA[a_,c_]]->IndexDelta[b,c], RA[b_,a_] Transpose[RA[c_,a_]]->IndexDelta[b,c]}
+ ];
 
 LYukawa := Block[{sp,ii,jj,cc,ff1,ff2,ff3,yuk,feynmangaugerules},
-  yuk =
-   -yd[ff2, ff3] CKM[ff1, ff2] QLbar[sp, ii, ff1, cc].dR [sp, ff3, cc] Phi2[ii] -
-    yl[ff1, ff3] LLbar[sp, ii, ff1].lR [sp, ff3] Phi1[ii] -
-    yu[ff1, ff2] QLbar[sp, ii, ff1, cc].uR [sp, ff2, cc] Phi2bar[jj] Eps[ii, jj];
+ 
+  yuk = ExpandIndices[
+   -yd[ff2, ff3] CKM[ff1, ff2] QLbar[sp, ii, ff1, cc].dR [sp, ff3, cc] Phi1[ii] - 
+    yl[ff1, ff3] LLbar[sp, ii, ff1].lR [sp, ff3] Phi1[ii] - 
+    yu[ff1, ff2] QLbar[sp, ii, ff1, cc].uR [sp, ff2, cc] Phi1bar[jj] Eps[ii, jj], FlavorExpand -> SU2D];
   yuk+HC[yuk]
  ];
 
-LGhost := Block[{LGh1,LGhw,LGhs,LGhphi,mu, ii,generators,gh,ghbar,Vectorize,phi1,phi2,togoldstones,doublet,doublet0},
-  (* Pure gauge piece *)
+LGhost := Block[{LGh1,LGhw,LGhs,LGhphi,mu, generators,gh,ghbar,Vectorize,phi1,phi2,togoldstones,doublet,doublet0},
+  (* Pure gauge piece *) 	
   LGh1 = -ghBbar.del[DC[ghB,mu],mu];
   LGhw = -ghWibar[ii].del[DC[ghWi[ii],mu],mu];
-  LGhs = -ghGbar.del[DC[ghG,mu],mu];
+  LGhs = -ghGbar[ii].del[DC[ghG[ii],mu],mu];
 
   (* Scalar pieces: see Peskin pages 739-742 *)
   (* phi1 and phi2 are the real degrees of freedom of GP *)
@@ -912,33 +935,12 @@ LGhost := Block[{LGh1,LGhw,LGhs,LGhphi,mu, ii,generators,gh,ghbar,Vectorize,phi1
   gh    = {ghB, ghWi[1], ghWi[2], ghWi[3]};
   ghbar = {ghBbar, ghWibar[1], ghWibar[2], ghWibar[3]};
   generators = {-I/2 g1 IdentityMatrix[2], -I/2 gw PauliSigma[1], -I/2 gw PauliSigma[2], -I/2 gw PauliSigma[3]};
-  doublet = Expand[{(-I phi1 - phi2)/Sqrt[2], Phi[2]} /. MR$Definitions /. vev -> 0];
+  doublet = Expand[{(-I phi1 - phi2)/Sqrt[2], Phi1[2]} /. MR$Definitions /. vev -> 0]; 
   doublet0 = {0, vev/Sqrt[2]};
   Vectorize[{a_, b_}]:= Simplify[{Sqrt[2] Re[Expand[a]], Sqrt[2] Im[Expand[a]], Sqrt[2] Re[Expand[b]], Sqrt[2] Im[Expand[b]]}/.{Im[_]->0, Re[num_]->num}];
   togoldstones := {phi1 -> (GP + GPbar)/Sqrt[2], phi2 -> (-GP + GPbar)/(I Sqrt[2])};
   LGhphi=Plus@@Flatten[Table[-ghbar[[kkk]].gh[[lll]] Vectorize[generators[[kkk]].doublet0].Vectorize[generators[[lll]].(doublet+doublet0)],{kkk,4},{lll,4}]] /.togoldstones;
 
-LGhs + If[FeynmanGauge, LGh1 + LGhw + LGhphi,0]];
+ExpandIndices[ LGhs + If[FeynmanGauge, LGh1 + LGhw + LGhphi,0], FlavorExpand->SU2W]];
 
-LHiggs := Block[{ii,jj,mu,V2HDM,feynmangaugerules},
-  feynmangaugerules = If[Not[FeynmanGauge], {G0|GP|GPbar ->0}, {}];
-  
-  (* *************************************** *)
-  (* *****   N2HDM Scalar Potential   ***** *)
-  (* *************************************** *)
-  
-  V2HDM = m11 Phi1bar[ii] Phi1[ii] + lam1/2 Phi1bar[ii] Phi1[ii] Phi1bar[jj] Phi1[jj]
-         + m22 Phi2bar[ii] Phi2[ii] + lam2/2 Phi2bar[ii] Phi2[ii] Phi2bar[jj] Phi2[jj]
-         - m12 ( Phi1bar[ii] Phi2[ii] + Phi2bar[ii] Phi1[ii] )
-         + lam3 Phi1bar[ii] Phi1[ii] Phi2bar[jj] Phi2[jj] + lam4 Phi1bar[ii] Phi2[ii] Phi2bar[jj] Phi1[jj]
-         + lam5/2 ( Phi1bar[ii] Phi2[ii] Phi1bar[jj] Phi2[jj] + Phi2bar[ii] Phi1[ii] Phi2bar[jj] Phi1[jj] );
-         + m3/2 Phi3^2 + lam6/8 Phi3^4 + lam7/2 Phi1bar[ii] Phi1[ii] Phi3^2 + lam8/2 Phi2bar[ii] Phi2[ii] Phi3^2 ; 
-  V2HDM = V2HDM/.massparam/.couparam;
-  
-  Lscalar = ExpandIndices[DC[Phi1bar[ii],mu] DC[Phi1[ii],mu] + DC[Phi2bar[ii],mu] DC[Phi2[ii],mu] + del[Phi3,mu] del[Phi3,mu]/2 - V2HDM, FlavorExpand->{SU2D,SU2W,CPevenscalar}];
-  Lscalar = Lscalar/.{RA[a_,b_] Transpose[RA[c_,a_]]->IndexDelta[b,c], RA[b_,a_] Transpose[RA[a_,c_]]->IndexDelta[b,c]};
-  Lscalar/.feynmangaugerules 
-];
-
-
-LN2HDM:= LGauge + LFermions + LHiggs + LYukawa + LGhost;
+L2HDMS:= LGauge + LFermions + LHiggs + LYukawa + LGhost;
