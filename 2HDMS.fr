@@ -377,7 +377,7 @@ M$ClassesDescription = {
     Indices         -> {Index[CPevenscalar]},
     FlavorIndex     -> CPevenscalar,
     SelfConjugate   -> True,
-    Mass            -> {Mh, {Mh1,125}, {Mh2,150}, {MhS,270}},
+    Mass            -> {Mh, {Mh1,125}, {Mh2,270}, {MhS,140}},
     Width           -> {{Wh1,0.00407}, {Wh2,10.85}, {WS,20.85}},
     PropagatorLabel -> {"h", "h1", "h2", "S"},
     PropagatorType  -> D,
@@ -419,7 +419,7 @@ M$ClassesDescription = {
   S[4] == {
     ClassName       -> A0,
     SelfConjugate   -> True,
-    Mass            -> {MA0,250},
+    Mass            -> {MA0,600},
     Width           -> {WA0,20.85},
     PropagatorLabel -> "A0",
     PropagatorType  -> D,
@@ -431,7 +431,7 @@ M$ClassesDescription = {
   S[5] == {
     ClassName        -> HP,
     SelfConjugate    -> False,
-    Mass             -> {MHP, 250},
+    Mass             -> {MHP, 600},
     QuantumNumbers   -> {Q -> 1},
     Width            -> {WHP, 20.85},
     PropagatorLabel  -> "HP",
@@ -635,44 +635,44 @@ M$ParametersExt = {
 
   a1 == {
     ParameterType    -> External,
-    BlockName        -> 2HDMSBLOCK,
-    Value            -> 0.1,
+    BlockName        -> THDMSBLOCK,
+    Value            -> 0.885,
     TeX              -> Subscript[\[Alpha],1],
     Description      -> "alpha 1"
   },
   a2 == {
     ParameterType    -> External,
-    BlockName        -> 2HDMSBLOCK,
-    Value            -> 0.1,
+    BlockName        -> THDMSBLOCK,
+    Value            -> -0.167,
     TeX              -> Subscript[\[Alpha],2],
     Description      -> "alpha 2"
   },
   a3 == {
     ParameterType    -> External,
-    BlockName        -> 2HDMSBLOCK,
-    Value            -> 0.1,
+    BlockName        -> THDMSBLOCK,
+    Value            -> -1.28,
     TeX              -> Subscript[\[Alpha],3],
     Description      -> "alpha 3"
   },
   tanb == {
     ParameterType    -> External,
-    BlockName        -> 2HDMSBLOCK,
-    Value            -> 0.1,
+    BlockName        -> THDMSBLOCK,
+    Value            -> 0.85,
     TeX              -> Subscript[t,\[Beta]],
     Description      -> "tan beta"
   },
   vev3 == {
     ParameterType    -> External,
-    BlockName        -> 2HDMSBLOCK,
-    Value            -> 500., 
+    BlockName        -> THDMSBLOCK,
+    Value            -> 1500., 
     InteractionOrder -> {QED,-1},
     TeX              -> Subscript[v, 3],
     Description      -> "Phi3 vacuum expectation value"
   },
   m12 == {
     ParameterType    -> External,
-    BlockName        -> 2HDMSBLOCK,
-    Value            -> 100.,
+    BlockName        -> THDMSBLOCK,
+    Value            -> 3500.,
     TeX              -> Subscript[m, 12],
     Description      -> "Soft breaking parameter"
   }

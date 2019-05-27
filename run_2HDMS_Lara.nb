@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     17737,        413]
-NotebookOptionsPosition[     15078,        369]
-NotebookOutlinePosition[     15431,        385]
-CellTagsIndexPosition[     15388,        382]
+NotebookDataLength[     10098,        231]
+NotebookOptionsPosition[      8752,        201]
+NotebookOutlinePosition[      9105,        217]
+CellTagsIndexPosition[      9062,        214]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -51,16 +51,12 @@ Here we initialise FeynRules, set our directories, and load our *.fr model\
 Cell[BoxData[{
  RowBox[{
   RowBox[{"$FeynRulesPath", "=", 
-   RowBox[{
-   "SetDirectory", "[", 
-    "\"\</Users/laramason/Downloads/feynrules-current\>\"", "]"}]}], 
-  ";"}], "\n", 
+   RowBox[{"SetDirectory", "[", "\"\</path/\>\"", "]"}]}], ";"}], "\n", 
  RowBox[{
   RowBox[{"<<", "FeynRules`"}], ";"}], "\n", 
  RowBox[{
   RowBox[{"SetDirectory", "[", 
-   RowBox[{"$FeynRulesPath", "<>", "\"\</Models/2HDM/2HDM_add_vevs\>\""}], 
-   "]"}], ";"}], "\n", 
+   RowBox[{"$FeynRulesPath", "<>", "\"\</path/\>\""}], "]"}], ";"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{"FR$Parallelize", " ", "=", " ", "False"}], ";"}], "\n"}], "\n", 
@@ -114,8 +110,8 @@ Cell[BoxData[{
    3.7676945177785683`*^9, 3.767694523690427*^9}, {3.7676968638082237`*^9, 
    3.767696866834929*^9}, {3.7677990736629143`*^9, 3.7677990793149223`*^9}, {
    3.7678675435807133`*^9, 3.767867546362349*^9}, {3.7678702082743397`*^9, 
-   3.767870213675436*^9}},
- CellLabel->"In[1]:=",ExpressionUUID->"8c23dfbf-f5af-4010-bad2-6b08ff71dad0"],
+   3.767870248202867*^9}},ExpressionUUID->"8c23dfbf-f5af-4010-bad2-\
+6b08ff71dad0"],
 
 Cell[BoxData[
  StyleBox[
@@ -198,171 +194,7 @@ Cell[BoxData[
  CellChangeTimes->{{3.7609393644630747`*^9, 3.7609393653244143`*^9}, 
    3.767578323851243*^9, 
    3.767870179401164*^9},ExpressionUUID->"6494dc4b-92d2-4c2f-9155-\
-a916ed1fa40e"],
-
-Cell[TextData[StyleBox["Now we generate the input for FeynArts", \
-"Subsubsection"]], "Text",
- CellChangeTimes->{
-  3.760937665436726*^9},ExpressionUUID->"15581f71-3cb4-412b-96bd-\
-a6fe3977d607"],
-
-Cell[BoxData[
- RowBox[{"WriteFeynArtsOutput", "[", 
-  RowBox[{"L2HDMS", ",", " ", 
-   RowBox[{"FlavorExpand", "->", "SU2W"}]}], "]"}]], "Input",
- CellChangeTimes->{{3.760939367025606*^9, 3.7609393679591*^9}, {
-   3.761370256110715*^9, 3.7613702633725157`*^9}, {3.7675843211478252`*^9, 
-   3.767584324481282*^9}, 
-   3.767870180735943*^9},ExpressionUUID->"26326a8e-cc7c-4376-b35e-\
-3bf5803ae376"],
-
-Cell[TextData[StyleBox["Initialise FeynArts, FormCalc", "Section"]], "Text",
- CellChangeTimes->{
-  3.760937703844407*^9},ExpressionUUID->"ae4f419a-e947-43ad-b29f-\
-aabc0d213889"],
-
-Cell[TextData[StyleBox["Be sure to quit the Kernel before continuing", \
-"Subsubsection"]], "Text",
- CellChangeTimes->{
-  3.760937821048424*^9},ExpressionUUID->"8e37316d-6938-4070-8732-\
-1e02081a3fd3"],
-
-Cell[BoxData[{
- RowBox[{"<<", "FeynArts`"}], "\[IndentingNewLine]", 
- RowBox[{"<<", " ", "FormCalc`"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"model", "=", 
-   RowBox[{"FileNameJoin", "[", 
-    RowBox[{"{", 
-     RowBox[{
-      RowBox[{"NotebookDirectory", "[", "]"}], ",", 
-      "\"\<2-Higgs-Doublet_Model+S_FA\>\"", ",", 
-      "\"\<2-Higgs-Doublet_Model+S_FA\>\""}], "}"}], "]"}]}], ";"}]}], "Input",\
-
- CellChangeTimes->{{3.760940097408333*^9, 3.760940106170185*^9}, {
-  3.767584415554632*^9, 3.767584419761779*^9}, {3.767799234070648*^9, 
-  3.7677992361086597`*^9}},ExpressionUUID->"43dfa52d-ebf1-4f71-8f8f-\
-c80ee6ce4a25"],
-
-Cell[TextData[StyleBox["Check that the model files exist", "Subsubsection"]], \
-"Text",
- CellChangeTimes->{
-  3.760937841378831*^9},ExpressionUUID->"1a95e57b-67b5-45b3-93be-\
-200300e2e059"],
-
-Cell[BoxData[{
- RowBox[{"FileExistsQ", "[", 
-  RowBox[{"model", "<>", "\"\<.mod\>\""}], "]"}], "\[IndentingNewLine]", 
- RowBox[{"FileExistsQ", "[", 
-  RowBox[{"model", "<>", "\"\<.gen\>\""}], "]"}]}], "Input",
- CellLabel->"In[4]:=",ExpressionUUID->"544e621c-d387-47af-87f1-c7c531394221"],
-
-Cell[TextData[StyleBox["Create Topologies", "Subsubsection"]], "Text",
- CellChangeTimes->{
-  3.7609378574032803`*^9},ExpressionUUID->"5b82d675-cc6e-4f09-a443-\
-ea0130c2865e"],
-
-Cell[BoxData[{
- RowBox[{
-  RowBox[{"topo", "=", 
-   RowBox[{"CreateTopologies", "[", 
-    RowBox[{"0", ",", 
-     RowBox[{"2", "\[Rule]", "2"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"Paint", "[", "topo", "]"}], ";"}]}], "Input",
- CellChangeTimes->{{3.762834836730439*^9, 3.7628348370274963`*^9}, {
-  3.767584506099414*^9, 3.767584506256629*^9}},
- CellLabel->"In[11]:=",ExpressionUUID->"94799618-a3a6-4b44-be66-b1cb8c017312"],
-
-Cell[TextData[StyleBox["Insert some fields: let\[CloseCurlyQuote]s start with \
-inserting a scalar (H)", "Subsubsection"]], "Text",
- CellChangeTimes->{
-  3.7609378796248293`*^9},ExpressionUUID->"d2dbbc4e-b421-4b4f-9088-\
-ed44a4ac0a4d"],
-
-Cell[BoxData[{
- RowBox[{"diag", "=", 
-  RowBox[{"InsertFields", "[", 
-   RowBox[{"topo", ",", 
-    RowBox[{
-     RowBox[{"{", 
-      RowBox[{
-       RowBox[{"V", "[", "1", "]"}], ",", 
-       RowBox[{"V", "[", "1", "]"}]}], "}"}], "\[Rule]", 
-     RowBox[{"{", 
-      RowBox[{
-       RowBox[{"V", "[", "1", "]"}], ",", 
-       RowBox[{"V", "[", "1", "]"}]}], "}"}]}], ",", 
-    RowBox[{"InsertionLevel", "\[Rule]", 
-     RowBox[{"{", "Classes", "}"}]}], ",", "\[IndentingNewLine]", 
-    RowBox[{"Model", "\[Rule]", "model"}], ",", 
-    RowBox[{"GenericModel", "\[Rule]", "model"}]}], 
-   "]"}]}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"Paint", "[", "diag", "]"}], ";"}]}], "Input",
- CellChangeTimes->{{3.760940359240896*^9, 3.760940364935314*^9}, {
-  3.7609404399298573`*^9, 3.760940455493382*^9}, {3.7609406041016083`*^9, 
-  3.760940614723078*^9}, {3.760940658666525*^9, 3.760940661934553*^9}, {
-  3.7618924951612377`*^9, 3.761892518793659*^9}, {3.7628346015859137`*^9, 
-  3.762834608260975*^9}, {3.762834855046566*^9, 3.762834864595735*^9}, {
-  3.767584514943612*^9, 3.7675845159566*^9}},
- CellLabel->"In[13]:=",ExpressionUUID->"34f8a020-2e68-40b5-ba9a-06565f18c0dc"],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"TopologyList", "[", 
-   RowBox[{
-    RowBox[{"Process", "\[Rule]", 
-     RowBox[{
-      RowBox[{"{", 
-       RowBox[{"V", "[", "2", "]"}], "}"}], "\[Rule]", 
-      RowBox[{"{", 
-       RowBox[{
-        RowBox[{"V", "[", "1", "]"}], ",", 
-        RowBox[{"V", "[", "1", "]"}]}], "}"}]}]}], ",", 
-    RowBox[{"Model", "\[Rule]", 
-     RowBox[{
-     "{", "\"\</Users/laramason/Downloads/feynrules-current/Models/2HDM/2HDM_\
-add_vevs/2-Higgs-Doublet_Model+S_FA/2-Higgs-Doublet_Model+S_FA\>\"", "}"}]}], 
-    ",", 
-    RowBox[{"GenericModel", "\[Rule]", 
-     RowBox[{
-     "{", "\"\</Users/laramason/Downloads/feynrules-current/Models/2HDM/2HDM_\
-add_vevs/2-Higgs-Doublet_Model+S_FA/2-Higgs-Doublet_Model+S_FA\>\"", "}"}]}], 
-    ",", 
-    RowBox[{"InsertionLevel", "\[Rule]", 
-     RowBox[{"{", "Classes", "}"}]}], ",", 
-    RowBox[{"ExcludeParticles", "\[Rule]", 
-     RowBox[{"{", "}"}]}], ",", 
-    RowBox[{"ExcludeFieldPoints", "\[Rule]", 
-     RowBox[{"{", "}"}]}], ",", 
-    RowBox[{"LastSelections", "\[Rule]", 
-     RowBox[{"{", "}"}]}]}], "]"}], "[", "]"}]], "Input",
- CellChangeTimes->{{3.7675844833039627`*^9, 3.7675844835471363`*^9}},
- CellLabel->"In[10]:=",ExpressionUUID->"a26b5374-584b-42f9-9d0e-9eef0a9040f3"],
-
-Cell[TextData[StyleBox["Calculate Amplitude", "Subsubsection"]], "Text",
- CellChangeTimes->{
-  3.760937915944209*^9},ExpressionUUID->"9e895ca5-f8b5-47d9-844a-\
-54d84050c94c"],
-
-Cell[BoxData[{
- RowBox[{
-  RowBox[{"ClearProcess", "[", "]"}], ";"}], "\[IndentingNewLine]", 
- RowBox[{"amp", "=", 
-  RowBox[{"CalcFeynAmp", "[", 
-   RowBox[{
-    RowBox[{"CreateFeynAmp", "[", "diag", "]"}], ",", 
-    RowBox[{"FermionChains", "\[Rule]", "VA"}]}], 
-   "]"}]}], "\[IndentingNewLine]", 
- RowBox[{"SquaredME", "[", "amp", "]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"%", "[", 
-   RowBox[{"[", "1", "]"}], "]"}], "//.", 
-  RowBox[{"%", "[", 
-   RowBox[{"[", "2", "]"}], "]"}]}], "\[IndentingNewLine]", 
- RowBox[{"%", "//", "FullForm"}]}], "Input",
- CellLabel->"In[10]:=",ExpressionUUID->"2f954f12-9fba-4182-8074-aa360b4630a9"]
+a916ed1fa40e"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
@@ -391,27 +223,13 @@ Cell[CellGroupData[{
 Cell[947, 34, 196, 3, 64, "Subsection",ExpressionUUID->"9f987657-6919-4b6c-9b55-ddabb52bc7d4"],
 Cell[CellGroupData[{
 Cell[1168, 41, 306, 7, 71, "Subsubsection",ExpressionUUID->"2069966a-395a-4f9e-bcab-0e375e461a5c"],
-Cell[1477, 50, 4107, 67, 178, "Input",ExpressionUUID->"8c23dfbf-f5af-4010-bad2-6b08ff71dad0"],
-Cell[5587, 119, 275, 7, 37, "Input",ExpressionUUID->"68af79e1-dcc4-4c95-a9cb-c540f21c3b2a"],
-Cell[5865, 128, 1747, 43, 136, "Input",ExpressionUUID->"70b63648-1f70-4d31-ba21-11d6ad54a312"],
-Cell[7615, 173, 218, 4, 40, "Text",ExpressionUUID->"02e240e6-1708-4842-957b-93c58be42e4d"],
-Cell[7836, 179, 368, 5, 30, "Input",ExpressionUUID->"b087a14e-7dbe-4d6c-83cd-723f2bd268e6"],
-Cell[8207, 186, 264, 5, 30, "Input",ExpressionUUID->"260be7d8-8898-4850-9950-c368f866a371"],
-Cell[8474, 193, 333, 7, 30, "Input",ExpressionUUID->"6494dc4b-92d2-4c2f-9155-a916ed1fa40e"],
-Cell[8810, 202, 195, 4, 40, "Text",ExpressionUUID->"15581f71-3cb4-412b-96bd-a6fe3977d607"],
-Cell[9008, 208, 395, 8, 30, "Input",ExpressionUUID->"26326a8e-cc7c-4376-b35e-3bf5803ae376"],
-Cell[9406, 218, 178, 3, 51, "Text",ExpressionUUID->"ae4f419a-e947-43ad-b29f-aabc0d213889"],
-Cell[9587, 223, 201, 4, 40, "Text",ExpressionUUID->"8e37316d-6938-4070-8732-1e02081a3fd3"],
-Cell[9791, 229, 635, 15, 94, "Input",ExpressionUUID->"43dfa52d-ebf1-4f71-8f8f-c80ee6ce4a25"],
-Cell[10429, 246, 189, 4, 40, "Text",ExpressionUUID->"1a95e57b-67b5-45b3-93be-200300e2e059"],
-Cell[10621, 252, 287, 5, 52, "Input",ExpressionUUID->"544e621c-d387-47af-87f1-c7c531394221"],
-Cell[10911, 259, 174, 3, 40, "Text",ExpressionUUID->"5b82d675-cc6e-4f09-a443-ea0130c2865e"],
-Cell[11088, 264, 449, 10, 52, "Input",ExpressionUUID->"94799618-a3a6-4b44-be66-b1cb8c017312"],
-Cell[11540, 276, 235, 4, 40, "Text",ExpressionUUID->"d2dbbc4e-b421-4b4f-9088-ed44a4ac0a4d"],
-Cell[11778, 282, 1175, 26, 73, "Input",ExpressionUUID->"34f8a020-2e68-40b5-ba9a-06565f18c0dc"],
-Cell[12956, 310, 1257, 31, 199, "Input",ExpressionUUID->"a26b5374-584b-42f9-9d0e-9eef0a9040f3"],
-Cell[14216, 343, 174, 3, 40, "Text",ExpressionUUID->"9e895ca5-f8b5-47d9-844a-54d84050c94c"],
-Cell[14393, 348, 645, 16, 115, "Input",ExpressionUUID->"2f954f12-9fba-4182-8074-aa360b4630a9"]
+Cell[1477, 50, 4012, 63, 178, "Input",ExpressionUUID->"8c23dfbf-f5af-4010-bad2-6b08ff71dad0"],
+Cell[5492, 115, 275, 7, 37, "Input",ExpressionUUID->"68af79e1-dcc4-4c95-a9cb-c540f21c3b2a"],
+Cell[5770, 124, 1747, 43, 136, "Input",ExpressionUUID->"70b63648-1f70-4d31-ba21-11d6ad54a312"],
+Cell[7520, 169, 218, 4, 40, "Text",ExpressionUUID->"02e240e6-1708-4842-957b-93c58be42e4d"],
+Cell[7741, 175, 368, 5, 30, "Input",ExpressionUUID->"b087a14e-7dbe-4d6c-83cd-723f2bd268e6"],
+Cell[8112, 182, 264, 5, 30, "Input",ExpressionUUID->"260be7d8-8898-4850-9950-c368f866a371"],
+Cell[8379, 189, 333, 7, 30, "Input",ExpressionUUID->"6494dc4b-92d2-4c2f-9155-a916ed1fa40e"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
