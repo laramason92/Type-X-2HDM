@@ -917,9 +917,9 @@ LHiggs := Block[{ii,jj,mu,V2HDMS,feynmangaugerules},
 LYukawa := Block[{sp,ii,jj,cc,ff1,ff2,ff3,yuk,feynmangaugerules},
  
   yuk = ExpandIndices[
-   -yd[ff2, ff3] CKM[ff1, ff2] QLbar[sp, ii, ff1, cc].dR [sp, ff3, cc] Phi1[ii] - 
+   -yd[ff2, ff3] CKM[ff1, ff2] QLbar[sp, ii, ff1, cc].dR [sp, ff3, cc] Phi2[ii] - 
     yl[ff1, ff3] LLbar[sp, ii, ff1].lR [sp, ff3] Phi1[ii] - 
-    yu[ff1, ff2] QLbar[sp, ii, ff1, cc].uR [sp, ff2, cc] Phi1bar[jj] Eps[ii, jj], FlavorExpand -> SU2D];
+    yu[ff1, ff2] QLbar[sp, ii, ff1, cc].uR [sp, ff2, cc] Phi2bar[jj] Eps[ii, jj], FlavorExpand -> SU2D];
   yuk+HC[yuk]
  ];
 
